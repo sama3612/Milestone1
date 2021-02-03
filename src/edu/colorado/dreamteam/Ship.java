@@ -3,6 +3,7 @@ package edu.colorado.dreamteam;
 // TODO: practice good OO design
 public class Ship {
     private String name;
+    //Dream Team pair 1 was here
     // TODO: create appropriate getter and setter methods
     // TODO: Understand encapsulation
     // TODO: Understand what these todo comments mean

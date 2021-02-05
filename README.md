@@ -3,3 +3,5 @@
 
 ## Members
 Sai Maddhi, Andrew Wu, Noorain Baig, Beka Admasu
+
+Under the documents directory, the coding standard, team contract, and CRC cards can all be found

@@ -3,9 +3,7 @@ package edu.colorado.dreamteam.java;
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
-         Ship ship = new Ship();
-         ship.show();
-
+        Driver driver = new Driver();
+        driver.initializeGame();
     }
 }

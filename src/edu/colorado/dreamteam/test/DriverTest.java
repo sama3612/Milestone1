@@ -33,5 +33,18 @@ public class DriverTest {
         System.setIn(sysInBackup);
     }
 
+    @Test
+    public void gameSwitchesTurns() {
+        //Start game and see if each player gets a turn and if the turns switch properly
+    }
 
+    @Test
+    public void checkIfGameIsOver() {
+        //Start a game and see if it ends if a player loses
+    }
+
+    @Test
+    public void playerIsAlive() {
+        //create player with map, attack remaining ship, check if isAlive is set to false
+    }
 }

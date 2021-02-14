@@ -1,4 +1,4 @@
-package edu.colorado.dreamteam;
+package edu.colorado.dreamteam.java;
   
 public class Main {
 

@@ -1,4 +1,4 @@
-package edu.colorado.dreamteam;
+package edu.colorado.dreamteam.java;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
 public class Ship {

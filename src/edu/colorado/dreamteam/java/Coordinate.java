@@ -3,18 +3,18 @@ package edu.colorado.dreamteam.java;
 import java.util.Objects;
 
 public class Coordinate {
-    private char x;
+    private int x;
     private int y;
-    public Coordinate(char x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public char getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(char x) {
+    public void setX(int x) {
         this.x = x;
     }
 

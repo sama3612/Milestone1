@@ -5,11 +5,8 @@ import edu.colorado.dreamteam.java.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 public class MapTest {
 
     //Test if the map intializes, check if it displays the 10 by 10 grid.
@@ -20,22 +17,26 @@ public class MapTest {
     }
     //Test if it set ships on map at given location
     @Test
-    public void checkSetMap(){
+    public void checkSetMap(){ //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2));
+        map.setMaps(new Coordinate(1,2),'M','V');
+        //V for vertical
+        //H for Horizontal
+        //Minesweeper=2 char M
+        //Destroyer=3   char D
+        //Battleship=4 char B
         assertThat(map.hasShips(),is(true));
     }
     //Add a test that checks for ships cant be placed diagonally
     @Test
     public void checkDiagonal(){
         Map map = new Map();
-        map.setMaps(new Coordinate{new Coordinate(1,2)});
+        map.setMaps(new Coordinate(1,2), 'M', 'V' );
     }
-    //Check if next to eachother.
-    //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
+
     //More Test
     //Check if goes outside of the map.
-    //Check if it overlaps
+    //Check if it overlaps this test is for
     @Test
     public void checkifAttackMiss(){//checks if the gettattacked returns a miss
         Map map = new Map();
@@ -45,13 +46,13 @@ public class MapTest {
     @Test
     public void checkifHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2));
+        map.setMaps(new Coordinate(1,2), 'M', 'V');
         assertThat(map.getAttacked(new Coordinate(1, 2)), is(true));
     }
     @Test
     public void checkifAlreadyHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2));
+        map.setMaps(new Coordinate(1,2), 'M', 'V');
         map.getAttacked(new Coordinate(1, 2));//even tho this prints out
         assertThat(map.getAttacked(new Coordinate(1, 2)), is(false));
     }
@@ -71,7 +72,7 @@ public class MapTest {
     @Test
     public void checkifShipsleft(){ //Checks if there are any ships left
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2));
+        map.setMaps(new Coordinate(1,2), 'M', 'V');
         assertThat(map.hasShips(),is(true));
     }
 

@@ -1,7 +1,4 @@
 package edu.colorado.dreamteam.java;
-import java.util.Scanner;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
 // TODO: initialize map (maybe a constructor too). Add necessary private variables to keep track of state of map for each player
 // TODO: implement hasShips. Check if the map has any ships left
 // TODO: implement getAttacked. takes in an attack Coordinate and attacks the ship at that location. returns whether it was a successful attack
@@ -10,6 +7,8 @@ import static org.hamcrest.MatcherAssert.*;
 
 public class Map<i> {
     private int Maps[][]=new int[10][10];//Create a 2d array
+//    private char ShipType;
+//    private char Position;
     public Map(){
         for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
             for (int j = 0; j < 10; j++) {
@@ -50,10 +49,52 @@ public class Map<i> {
             }
         }
         //Set ships on map on the given locations!
-        public void setMaps(Coordinate ship) {//Go through coordinates and set those on the map =1
+        public void setMaps(Coordinate ship, char m, char v) {//Go through coordinates and set those on the map =1
             //Takes in a coordinate and it sets those values to 1;
-            //limit user, to down or sideways
-            Maps[ship.getX()][ship.getY()] = 1;
+            //limit user, to down or sideways.
+            //V for vertical, H for Horizontal.
+            //M for Minesweeper=2 cells, D for Destroyer=3 cells, B for Battleship=4 cells.
+            if(v=='V'){
+                if(m=='M' ){
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()+1][ship.getY()] = 1;
+                }
+                else if(m=='D'){
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()+1][ship.getY()] = 1;
+                    Maps[ship.getX()+2][ship.getY()] = 1;
+                }
+                else{
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()+1][ship.getY()] = 1;
+                    Maps[ship.getX()+2][ship.getY()] = 1;
+                    Maps[ship.getX()+3][ship.getY()] = 1;
+                }
+            }
+            if(v=='H'){
+                if(m=='M' ){
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()][ship.getY()+1] = 1;
+                }
+                else if(m=='D'){
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()][ship.getY()+1] = 1;
+                    Maps[ship.getX()][ship.getY()+2] = 1;
+                }
+                else{
+                    Maps[ship.getX()][ship.getY()] = 1;
+                    Maps[ship.getX()][ship.getY()+1] = 1;
+                    Maps[ship.getX()][ship.getY()+2] = 1;
+                    Maps[ship.getX()][ship.getY()+3] = 1;
+                }
+            }
+            for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
+                for (int j = 0; j < 10; j++) {
+                    System.out.printf("%2d ", Maps[i][j]);
+                }
+                System.out.println();
+            }
+
         }
         //Return the map array!
         public void getMaps(){

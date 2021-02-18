@@ -19,7 +19,7 @@ public class MapTest {
     @Test
     public void checkSetMap(){ //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2),'M','V');
+        map.setMaps(new Coordinate(1,2),'B','H');
         //V for vertical
         //H for Horizontal
         //Minesweeper=2 char M

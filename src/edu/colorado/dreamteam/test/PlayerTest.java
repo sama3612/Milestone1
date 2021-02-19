@@ -15,7 +15,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerCreated() {
+    public void playerCreated1() {
         Player player = new Player("test", new Map());
         assertThat(player.getName(), is("test"));
     }

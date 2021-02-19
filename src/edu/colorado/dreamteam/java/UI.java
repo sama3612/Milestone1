@@ -15,7 +15,7 @@ public class UI {
 
         //ADD CODE HERE TO INITIALIZE A MAP FOR PLAYER AND RETURN PLAYER WITH THEIR MAP
 
-        return new Player(name, map);
+        return new Player(name, new Map());
     }
 
     public static Coordinate getAttack(Player player) {

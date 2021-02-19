@@ -19,7 +19,7 @@ public class MapTest {
     @Test
     public void checkSetMap(){ //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2),3,'V');//change the second parameter to length
+        map.placeShips(new Coordinate(1,2),3,'V');//change the second parameter to length
         //V for vertical
         //H for Horizontal
         assertThat(map.hasShips(),is(true));
@@ -28,7 +28,7 @@ public class MapTest {
     @Test
     public void checkDiagonal(){
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2), 'M', 'V' );
+        map.placeShips(new Coordinate(1,2), 2, 'V' );
     }
 
     //More Test
@@ -43,13 +43,13 @@ public class MapTest {
     @Test
     public void checkifHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2), 'M', 'V');
+        map.placeShips(new Coordinate(1,2), 2, 'V');
         assertThat(map.getAttacked(new Coordinate(1, 2)), is(true));
     }
     @Test
     public void checkifAlreadyHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2), 'M', 'V');
+        map.placeShips(new Coordinate(1,2), 2, 'V');
         map.getAttacked(new Coordinate(1, 2));//even tho this prints out
         assertThat(map.getAttacked(new Coordinate(1, 2)), is(false));
     }
@@ -63,13 +63,11 @@ public class MapTest {
 
     }
 
-
-
     //Test if there is any ships left in the grid.
     @Test
     public void checkifShipsleft(){ //Checks if there are any ships left
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2), 'M', 'V');
+        map.placeShips(new Coordinate(1,2), 3, 'V');
         assertThat(map.hasShips(),is(true));
     }
 

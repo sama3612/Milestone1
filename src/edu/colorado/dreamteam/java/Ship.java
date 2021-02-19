@@ -43,4 +43,15 @@ public class Ship {
     public Coordinate[] getCoordinates() {
         return coordinates;
     }
+
+    public boolean overlaps(Ship ship) {
+        for(Coordinate c1 : coordinates) {
+            for(Coordinate c2 : ship.getCoordinates()) {
+                if(c1 == c2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

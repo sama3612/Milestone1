@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.Test;
 
 public class MapTest {
-
+    //TODO: test if not in grid.
     //Test if the map intializes, check if it displays the 10 by 10 grid.
     @Test
     public void checkMapExist(){ //getMaps
@@ -19,12 +19,9 @@ public class MapTest {
     @Test
     public void checkSetMap(){ //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
         Map map = new Map();
-        map.setMaps(new Coordinate(1,2),'B','H');
+        map.setMaps(new Coordinate(1,2),3,'V');//change the second parameter to length
         //V for vertical
         //H for Horizontal
-        //Minesweeper=2 char M
-        //Destroyer=3   char D
-        //Battleship=4 char B
         assertThat(map.hasShips(),is(true));
     }
     //Add a test that checks for ships cant be placed diagonally

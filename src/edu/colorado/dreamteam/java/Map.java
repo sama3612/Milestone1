@@ -49,55 +49,30 @@ public class Map<i> {
             }
         }
         //Set ships on map on the given locations!
-        public void setMaps(Coordinate ship, char m, char v) {//Go through coordinates and set those on the map =1
+        public void setMaps(Coordinate ship, int m, char v) {//Go through coordinates and set those on the map =1
             //Takes in a coordinate and it sets those values to 1;
             //limit user, to down or sideways.
             //V for vertical, H for Horizontal.
             //M for Minesweeper=2 cells, D for Destroyer=3 cells, B for Battleship=4 cells.
             if(v=='V'){
-                if(m=='M' ){
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()+1][ship.getY()] = 1;
-                }
-                else if(m=='D'){
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()+1][ship.getY()] = 1;
-                    Maps[ship.getX()+2][ship.getY()] = 1;
-                }
-                else{
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()+1][ship.getY()] = 1;
-                    Maps[ship.getX()+2][ship.getY()] = 1;
-                    Maps[ship.getX()+3][ship.getY()] = 1;
+                for(int i=0; i<m; i++){
+                    Maps[ship.getX()+i][ship.getY()] = 1;
                 }
             }
-            if(v=='H'){
-                if(m=='M' ){
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()][ship.getY()+1] = 1;
-                }
-                else if(m=='D'){
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()][ship.getY()+1] = 1;
-                    Maps[ship.getX()][ship.getY()+2] = 1;
-                }
-                else{
-                    Maps[ship.getX()][ship.getY()] = 1;
-                    Maps[ship.getX()][ship.getY()+1] = 1;
-                    Maps[ship.getX()][ship.getY()+2] = 1;
-                    Maps[ship.getX()][ship.getY()+3] = 1;
+            else{
+                for(int i=0; i<m; i++){
+                    Maps[ship.getX()][ship.getY()+i] = 1;
                 }
             }
+//
+        }
+        //Return the map array!
+        public void getMaps(){
             for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
                 for (int j = 0; j < 10; j++) {
                     System.out.printf("%2d ", Maps[i][j]);
                 }
                 System.out.println();
             }
-
-        }
-        //Return the map array!
-        public void getMaps(){
-
         }
 }

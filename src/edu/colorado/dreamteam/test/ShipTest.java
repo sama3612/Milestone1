@@ -14,46 +14,46 @@ import java.io.InputStream;
 public class ShipTest {
     @Test
     public void shipCreated() {
-        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate('a', 1), new Coordinate('b', 1), new Coordinate('c', 1)});
+        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.getName(), is("destroyer"));
         assertThat(ship.getHealth(), is(3));
-        assertThat(ship.getCoordinates()[0].getX(), is('a'));
+        assertThat(ship.getCoordinates()[0].getX(), is(1));
         assertThat(ship.getCoordinates()[0].getY(), is(1));
     }
 
     @Test
     public void shipWasNotHit() {
-        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate('a', 1), new Coordinate('b', 1), new Coordinate('c', 1)});
+        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.getHealth(),is(3));
-        ship.getAttacked(new Coordinate('a',5));
+        ship.getAttacked(new Coordinate(1,5));
         assertThat(ship.getHealth(),is(3));
     }
 
     @Test
     public void shipWasHit() {
-        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate('a', 1), new Coordinate('b', 1), new Coordinate('c', 1)});
+        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.getHealth(),is(3));
-        ship.getAttacked(new Coordinate('c',1));
+        ship.getAttacked(new Coordinate(3,1));
         assertThat(ship.getHealth(),is(2));
     }
 
     @Test
     public void shipIsNotSunk() {
-        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate('a', 1), new Coordinate('b', 1), new Coordinate('c', 1)});
+        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate('a',5));
+        ship.getAttacked(new Coordinate(1,5));
         assertThat(ship.isSunk(), is(false));
     }
 
     @Test
     public void shipIsSunk() {
-        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate('a', 1), new Coordinate('b', 1), new Coordinate('c', 1)});
+        Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate('a',1));
+        ship.getAttacked(new Coordinate(1,1));
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate('b',1));
+        ship.getAttacked(new Coordinate(2,1));
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate('c',1));
+        ship.getAttacked(new Coordinate(3,1));
         assertThat(ship.isSunk(), is(true));
     }
 }

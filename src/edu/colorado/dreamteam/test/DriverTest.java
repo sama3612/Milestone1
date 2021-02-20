@@ -1,16 +1,14 @@
 package edu.colorado.dreamteam.test;
 
-import edu.colorado.dreamteam.java.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
+import edu.colorado.dreamteam.java.Driver;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class DriverTest {
     private Driver driver;

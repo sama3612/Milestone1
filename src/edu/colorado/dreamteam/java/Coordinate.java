@@ -1,10 +1,8 @@
 package edu.colorado.dreamteam.java;
 
-import java.util.Objects;
-
 public class Coordinate {
-    private int x;
-    private int y;
+    private int x;  /*x-coordinate*/
+    private int y;  /*y-coordinate*/
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;

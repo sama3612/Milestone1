@@ -18,7 +18,7 @@ public class Ship {
         this.coordinates = coordinates;
     }
 
-    public Boolean getAttacked(Coordinate attack) {
+    public Boolean getAttacked(Coordinate attack) {     //method to handle a ship being shot at
         for(Coordinate c : coordinates) {
             if(c.equals(attack)) {
                 health -= 1;
@@ -44,7 +44,7 @@ public class Ship {
         return coordinates;
     }
 
-    public boolean overlaps(Ship ship) {
+    public boolean overlaps(Ship ship) {            //method to check that a ship's coordinates does not overlap with other ships
         for(Coordinate c1 : coordinates) {
             for(Coordinate c2 : ship.getCoordinates()) {
                 if(c1 == c2) {

@@ -24,6 +24,21 @@ public class MapTest {
         //H for Horizontal
         assertThat(map.hasShips(),is(true));
     }
+
+    @Test
+    public void checkDirectionSetMap(){ //edge case: choosing an invalid value for v
+        Map map = new Map();
+        map.placeShips(new Coordinate(1,2),3,'t');
+        assertThat(map.hasShips(),is(false));
+    }
+
+    @Test
+    public void checkLengthSetMap(){ //edge case: choosing an invalid length
+        Map map = new Map();
+        map.placeShips(new Coordinate(11,2),30,'V');//invalid value for m
+        assertThat(map.hasShips(),is(false));
+    }
+
     //Add a test that checks for ships cant be placed diagonally
     @Test
     public void checkDiagonal(){

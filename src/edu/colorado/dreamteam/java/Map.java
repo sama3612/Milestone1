@@ -56,6 +56,7 @@ public class Map {
         //limit user, to down or sideways.
         //V for vertical, H for Horizontal.
         //M for Minesweeper=2 cells, D for Destroyer=3 cells, B for Battleship=4 cells.
+
         if(v=='V'){
             if(loc.getY() + m < 9) {
                 Coordinate coors[] = new Coordinate[m];
@@ -73,7 +74,7 @@ public class Map {
                 return true;
             }
         }
-        else{
+        else if(v == 'H'){
             if(loc.getX() + m < 9) {
                 Coordinate coors[] = new Coordinate[m];
                 for(int i = 0; i < m; i++) {

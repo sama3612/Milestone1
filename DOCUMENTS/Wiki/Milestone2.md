@@ -17,25 +17,20 @@ As a developer, I want to communicate effectively while pair programming with my
 
 Time Estimated: 3 hours
 
-Time Taken:
+Time Taken: 2.5 hours
 
-### Based on the user input, we can update the map of each player, initialize the boards, and then send this information to the UI class so that it can display all of the current information to the users playing the game.
-
-Time Estimated:2 hour
-
-Time Taken:
 
 ### Then we will need to create the Weapon class without the additional features that we thought of, so that the user can attack the opposing team.
 
-Time Estimated: 2 hour
+Time Estimated: 2 hours
 
-Time Taken:
+Time Taken: 1 hours
 
 ### Next we need to keep track of the health of ships, update the health of each ship, keep track of when the ships have been destroyed and eventually when the game has been won as well.
 
-Time Estimated: 2 hour
+Time Estimated: 2 hours
 
-Time Taken:
+Time Taken: 3 hours
 
 
 ## TESTS

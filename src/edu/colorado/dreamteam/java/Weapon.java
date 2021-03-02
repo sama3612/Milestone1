@@ -1,5 +1,13 @@
 package edu.colorado.dreamteam.java;
 
 public class Weapon {
-    //This will be the class to handle the different types of weapons
+    private String weaponType;
+
+    public Weapon(String weaponType) {
+        this.weaponType = weaponType;
+    }
+
+    public boolean isSonarPulse() {
+        return weaponType.equals("sonar_pulse");
+    }
 }

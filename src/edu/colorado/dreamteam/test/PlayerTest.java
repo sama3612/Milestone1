@@ -8,6 +8,9 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+//TODO: Have to create some good tests for Player, we haven't done that yet
+//TODO: Need to test if we can sink a ship
+//TODO: Need to test if game can be ended by sinking all of the ships
 public class PlayerTest {
     @Test
     public void playerCreated() {

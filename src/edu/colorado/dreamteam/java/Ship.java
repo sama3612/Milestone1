@@ -21,7 +21,7 @@ public class Ship {
 
         captainQuart = coordinates[coordinates.length-2];
 
-        if(size >= 2) {
+        if(size > 2) {
             armor = 1;
         }
         else {
@@ -33,17 +33,30 @@ public class Ship {
         if(captainQuart.equals(attack)) {
             if(armor != 0){
                 armor = 0;
+                return false;
             }
             else{
+                for(Coordinate c : coordinates) {
+                    if (c.equals(attack)) {
+                        c.getUsed();
+                        break;
+                    }
+                }
                 health = 0;
+                return true;
             }
-            return true;
         }
         else {
             for (Coordinate c : coordinates) {
                 if (c.equals(attack)) {
-                    health -= 1;
-                    return true;
+                    if(!c.wasUsed()) {
+                        c.getUsed();
+                        health -= 1;
+                        return true;
+                    } else {
+                        System.out.println("Already attacked before");
+                        return false;
+                    }
                 }
             }
             return false;
@@ -51,7 +64,7 @@ public class Ship {
     }
 
     public Boolean isSunk() {
-        return health == 0;
+        return health <= 0;
     }
 
     public String getName() {
@@ -75,5 +88,9 @@ public class Ship {
             }
         }
         return false;
+    }
+
+    public Coordinate getCaptainQuart() {
+        return captainQuart;
     }
 }

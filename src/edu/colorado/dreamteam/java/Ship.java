@@ -11,21 +11,43 @@ public class Ship {
     private String name;
     private int health;
     private Coordinate[] coordinates;
+    private Coordinate captainQuart;
+    private int armor;
 
     public Ship(String name, int size, Coordinate[] coordinates) {
         this.name = name;
         this.health = size;
         this.coordinates = coordinates;
+
+        captainQuart = coordinates[coordinates.length-2];
+
+        if(size >= 2) {
+            armor = 1;
+        }
+        else {
+            armor = 0;
+        }
     }
 
     public Boolean getAttacked(Coordinate attack) {     //method to handle a ship being shot at
-        for(Coordinate c : coordinates) {
-            if(c.equals(attack)) {
-                health -= 1;
-                return true;
+        if(captainQuart.equals(attack)) {
+            if(armor != 0){
+                armor = 0;
             }
+            else{
+                health = 0;
+            }
+            return true;
         }
-        return false;
+        else {
+            for (Coordinate c : coordinates) {
+                if (c.equals(attack)) {
+                    health -= 1;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public Boolean isSunk() {

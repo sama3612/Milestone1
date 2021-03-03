@@ -121,7 +121,7 @@ public class MapTest {
 
 //TODO: add assertion
     @Test
-    public void attackCaptainQTwice() {
+    public void attackCaptainQTwice() { //testing battleship
         Map map = new Map();
         map.placeShips(0,0,4,'H');
         map.getAttacked(0,2, new Weapon("mine"));
@@ -129,4 +129,26 @@ public class MapTest {
         map.getAttacked(0,2, new Weapon("mine"));
         map.getMaps();
     }
+
+    @Test
+    public void attackCaptainQTwiceDestroyer() { //testing destroyer
+        Map map = new Map();
+        map.placeShips(1,4,3,'H');
+        map.getAttacked(1,5, new Weapon("mine"));
+        map.getMaps();
+        map.getAttacked(1,5, new Weapon("mine"));
+        map.getMaps();
+    }
+
+    @Test
+    public void attackCaptainQTwiceMinesweeper() { //testing minesweeper
+        Map map = new Map();
+        map.placeShips(1,4,2,'H');
+        map.getAttacked(1,4, new Weapon("mine"));
+        map.getMaps();
+        map.getAttacked(1,4, new Weapon("mine"));
+        map.getMaps();
+    }
+
+
 }

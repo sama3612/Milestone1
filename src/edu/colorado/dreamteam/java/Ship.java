@@ -31,7 +31,7 @@ public class Ship {
     public void setCaptainQuart() {
         captainQuart = coordinates[coordinates.length-2];
         captainQuart.setStatus(Coordinate.Status.CAPTAINQ);
-        if(health > 2) {
+        if(health >= 2) { //changed to larger than or equal
             armor = 1;
         }
         else {

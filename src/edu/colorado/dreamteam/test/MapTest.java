@@ -146,8 +146,6 @@ public class MapTest {
         map.placeShips(1,4,2,'H');
         map.getAttacked(1,4, new Weapon("mine"));
         map.getMaps();
-        map.getAttacked(1,4, new Weapon("mine"));
-        map.getMaps();
     }
 
 

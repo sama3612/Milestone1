@@ -20,7 +20,7 @@ public class Ship {
         this.coordinates = coordinates;
         captainQuart = coordinates[coordinates.length-2];
 
-        if(health > 2) {
+        if(size > 2) {
             armor = 1;
         }
         else {
@@ -39,10 +39,12 @@ public class Ship {
         }
     }
 
-    public Boolean getAttacked(Coordinate attack) {     //method to handle a ship being shot at
+    public Boolean getAttacked(int row, int col) {     //method to handle a ship being shot at
+        Coordinate attack = new Coordinate(row, col);
         if(captainQuart.equals(attack)) {
             if(armor != 0){
                 armor = 0;
+                captainQuart.setStatus(Coordinate.Status.MISS);
                 return false;
             }
             else{
@@ -58,7 +60,7 @@ public class Ship {
         }
         else {
             for (Coordinate c : coordinates) {
-                if (c.equals(attack)) {
+                if (c.equals(attack) && c.getStatus() == Coordinate.Status.SHIP) {
                     c.setStatus(Coordinate.Status.HIT);
                     health -= 1;
                     return true;

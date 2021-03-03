@@ -19,7 +19,6 @@ public class Map {
         sonarPulsesLeft = 2;
         for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
             for (int j = 0; j < 10; j++) {
-//                board[i][j] = 0;
                 board[i][j] = new Coordinate(i,j);
             }
         }
@@ -73,7 +72,7 @@ public class Map {
         } else {
             if(board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ) {
                 for(int i = 0; i < numShips; i++) {
-                    if(ships[i].getAttacked(new Coordinate(row,col))) {
+                    if(ships[i].getAttacked(row,col)) {
                         if(ships[i].isSunk()) numShips--;
                         return true;
                     }
@@ -81,6 +80,7 @@ public class Map {
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                 System.out.println("This spot was attacked and Hit already!");
             } else if(board[row][col].getStatus() == Coordinate.Status.MISS){
+
                 System.out.println("This spot was attacked and Missed already!");
             } else {
                 board[row][col].setStatus(Coordinate.Status.MISS);

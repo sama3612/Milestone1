@@ -25,7 +25,7 @@ public class ShipTest {
     public void shipWasNotHit() {
         Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.getHealth(),is(3));
-        ship.getAttacked(new Coordinate(1,5));
+        ship.getAttacked(1,5);
         assertThat(ship.getHealth(),is(3));
     }
 
@@ -33,7 +33,7 @@ public class ShipTest {
     public void shipWasHit() {
         Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.getHealth(),is(3));
-        ship.getAttacked(new Coordinate(3,1));
+        ship.getAttacked(3,1);
         assertThat(ship.getHealth(),is(2));
     }
 
@@ -41,7 +41,7 @@ public class ShipTest {
     public void shipIsNotSunk() {
         Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate(1,5));
+        ship.getAttacked(1,5);
         assertThat(ship.isSunk(), is(false));
     }
 
@@ -49,11 +49,11 @@ public class ShipTest {
     public void shipIsSunk() {
         Ship ship = new Ship("destroyer",3, new Coordinate[]{new Coordinate(1, 1), new Coordinate(2, 1), new Coordinate(3, 1)});
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate(1,1));
+        ship.getAttacked(1,1);
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate(2,1));
+        ship.getAttacked(1,1);
         assertThat(ship.isSunk(), is(false));
-        ship.getAttacked(new Coordinate(3,1));
+        ship.getAttacked(1,1);
         assertThat(ship.isSunk(), is(true));
     }
 }

@@ -1,13 +1,21 @@
 package edu.colorado.dreamteam.java;
 
 public class Coordinate {
+    enum Status {
+        SHIP,
+        CAPTAINQ,
+        HIT,
+        MISS,
+        EMPTY
+    }
+
     private int x;  /*x-coordinate*/
     private int y;  /*y-coordinate*/
-    private boolean used;
+    private Status status;
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
-        this.used = false;
+        this.status = Status.EMPTY;
     }
 
     public int getX() {
@@ -26,12 +34,12 @@ public class Coordinate {
         this.y = y;
     }
 
-    public void getUsed() {
-        this.used = true;
+    public Status getStatus() {
+        return status;
     }
 
-    public boolean wasUsed() {
-        return used;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public boolean equals(Coordinate c) {

@@ -18,10 +18,20 @@ public class Ship {
         this.name = name;
         this.health = size;
         this.coordinates = coordinates;
-
         captainQuart = coordinates[coordinates.length-2];
 
-        if(size > 2) {
+        if(health > 2) {
+            armor = 1;
+        }
+        else {
+            armor = 0;
+        }
+    }
+
+    public void setCaptainQuart() {
+        captainQuart = coordinates[coordinates.length-2];
+        captainQuart.setStatus(Coordinate.Status.CAPTAINQ);
+        if(health > 2) {
             armor = 1;
         }
         else {
@@ -38,7 +48,7 @@ public class Ship {
             else{
                 for(Coordinate c : coordinates) {
                     if (c.equals(attack)) {
-                        c.getUsed();
+                        c.setStatus(Coordinate.Status.HIT);
                         break;
                     }
                 }
@@ -49,14 +59,9 @@ public class Ship {
         else {
             for (Coordinate c : coordinates) {
                 if (c.equals(attack)) {
-                    if(!c.wasUsed()) {
-                        c.getUsed();
-                        health -= 1;
-                        return true;
-                    } else {
-                        System.out.println("Already attacked before");
-                        return false;
-                    }
+                    c.setStatus(Coordinate.Status.HIT);
+                    health -= 1;
+                    return true;
                 }
             }
             return false;

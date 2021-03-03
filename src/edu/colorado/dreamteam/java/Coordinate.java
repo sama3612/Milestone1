@@ -6,7 +6,8 @@ public class Coordinate {
         CAPTAINQ,
         HIT,
         MISS,
-        EMPTY
+        EMPTY,
+        FAKEEMPTY //secondary status for a hit captain's quarters with armor that displays as miss but acts differently
     }
 
     private int x;  /*x-coordinate*/
@@ -56,6 +57,7 @@ public class Coordinate {
                 return "1";
             case HIT:
                 return "2";
+            case FAKEEMPTY:
             default: //MISS
                 return "3";
         }

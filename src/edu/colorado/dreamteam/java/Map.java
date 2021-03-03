@@ -28,6 +28,7 @@ public class Map {
         return numShips != 0;
     }
 
+//TODO: add check for if the ship gets sunk and update numShips accordingly
     public boolean getAttacked(int row, int col, Weapon weapon) {
         if(weapon.isSonarPulse()) {
             //Check if there are sonar pulses left
@@ -70,7 +71,7 @@ public class Map {
             sonarPulsesLeft--;
             return true;
         } else {
-            if(board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ) {
+            if(board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
                 for(int i = 0; i < numShips; i++) {
                     if(ships[i].getAttacked(row,col)) {
                         if(ships[i].isSunk()) numShips--;
@@ -80,7 +81,6 @@ public class Map {
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                 System.out.println("This spot was attacked and Hit already!");
             } else if(board[row][col].getStatus() == Coordinate.Status.MISS){
-
                 System.out.println("This spot was attacked and Missed already!");
             } else {
                 board[row][col].setStatus(Coordinate.Status.MISS);

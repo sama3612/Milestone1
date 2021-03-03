@@ -1,11 +1,11 @@
 package edu.colorado.dreamteam.test;
 
-import edu.colorado.dreamteam.java.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
+import edu.colorado.dreamteam.java.Map;
+import edu.colorado.dreamteam.java.Weapon;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MapTest {
     //Test if the map intializes, check if it displays the 10 by 10 grid.
@@ -116,6 +116,17 @@ public class MapTest {
         map.getAttacked(6,6, new Weapon("mine"));
         map.getAttacked(6,7, new Weapon("mine"));
         map.getAttacked(9,7, new Weapon("mine"));
+        map.getMaps();
+    }
+
+//TODO: add assertion
+    @Test
+    public void attackCaptainQTwice() {
+        Map map = new Map();
+        map.placeShips(0,0,4,'H');
+        map.getAttacked(0,2, new Weapon("mine"));
+        map.getMaps();
+        map.getAttacked(0,2, new Weapon("mine"));
         map.getMaps();
     }
 }

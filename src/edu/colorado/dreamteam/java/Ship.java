@@ -44,15 +44,12 @@ public class Ship {
         if(captainQuart.equals(attack)) {
             if(armor != 0){
                 armor = 0;
-                captainQuart.setStatus(Coordinate.Status.MISS);
+                captainQuart.setStatus(Coordinate.Status.FAKEEMPTY);
                 return false;
             }
             else{
                 for(Coordinate c : coordinates) {
-                    if (c.equals(attack)) {
-                        c.setStatus(Coordinate.Status.HIT);
-                        break;
-                    }
+                    c.setStatus(Coordinate.Status.HIT);
                 }
                 health = 0;
                 return true;

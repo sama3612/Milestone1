@@ -12,7 +12,7 @@ public class Map {
     private int sonarPulsesLeft;
 
     public Map(){
-//        board = new int[10][10];
+        board = new Coordinate[10][10];
         ships = new Ship[3];
         numShips = 0;
         startShips = 0;
@@ -132,21 +132,21 @@ public class Map {
         return true;
     }
 //TODO: Update this getMaps() with the new definition of board using enumerations
-//    //Return the map array!
-//    public void getMaps(){
-//        System.out.printf("   ");
-//        for (int j = 0; j < 10; j++) {
-//            System.out.printf("%2d ", j);
-//        }
-//        System.out.println();
-//        for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
-//            System.out.printf("%2d ", i);
-//            for (int j = 0; j < 10; j++) {
-//                System.out.printf("%2d ", board[i][j]);
-//            }
-//            System.out.println();
-//        }
-//    }
+    //Return the map array!
+    public void getMaps(){
+        System.out.printf("   ");
+        for (int j = 0; j < 10; j++) {
+            System.out.printf("%2d ", j);
+        }
+        System.out.println();
+        for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
+            System.out.printf("%2d ", i);
+            for (int j = 0; j < 10; j++) {
+                System.out.print(" " + board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
     //Return a specific array!
     public void getMaps(int board[][]){
         System.out.printf("   ");

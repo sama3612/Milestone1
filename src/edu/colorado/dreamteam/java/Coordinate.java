@@ -45,4 +45,19 @@ public class Coordinate {
     public boolean equals(Coordinate c) {
         return getX() == c.getX() && getY() == c.getY();
     }
+
+    @Override
+    public String toString() {
+        switch (this.status) {
+            case EMPTY:
+                return "0";
+            case SHIP:
+            case CAPTAINQ:
+                return "1";
+            case HIT:
+                return "2";
+            default: //MISS
+                return "3";
+        }
+    }
 }

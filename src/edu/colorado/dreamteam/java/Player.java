@@ -13,8 +13,8 @@ public class Player {
         return name;
     }
 
-    public boolean getAttacked(Coordinate attack, Weapon weapon) {
-        return map.getAttacked(attack, weapon);
+    public boolean getAttacked(int row, int col, Weapon weapon) {
+        return map.getAttacked(row, col, weapon);
     }
 
     public boolean isAlive() { return map.hasShips(); }

@@ -128,6 +128,7 @@ public class MapTest {
         map.getMaps();
         map.getAttacked(0,2, new Weapon("mine"));
         map.getMaps();
+        assertThat(map.hasShips(),is(false));
     }
 
     @Test
@@ -138,6 +139,7 @@ public class MapTest {
         map.getMaps();
         map.getAttacked(1,5, new Weapon("mine"));
         map.getMaps();
+        assertThat(map.hasShips(),is(false));
     }
 
     @Test
@@ -146,6 +148,7 @@ public class MapTest {
         map.placeShips(1,4,2,'H');
         map.getAttacked(1,4, new Weapon("mine"));
         map.getMaps();
+        assertThat(map.hasShips(),is(false));
     }
 
 

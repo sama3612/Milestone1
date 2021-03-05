@@ -90,7 +90,7 @@ public class Map {
         }
     }
     //Set ships on map on the given locations!
-    public boolean placeShips(int row, int col, int m, char v) {//Go through coordinates and set those on the map =1
+    public boolean placeShips(int row, int col, int m, char v) { //Go through coordinates and set those on the map =1
         //Takes in a coordinate and it sets those values to 1;
         //limit user, to down or sideways.
         //V for vertical, H for Horizontal.

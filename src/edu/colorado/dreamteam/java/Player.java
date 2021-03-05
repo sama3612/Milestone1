@@ -13,9 +13,11 @@ public class Player {
         return name;
     }
 
-    public boolean getAttacked(int row, int col, Weapon weapon) {
-        return map.getAttacked(row, col, weapon);
+    public boolean getAttacked(int row, int col, String weapon) {
+        return map.getAttacked(row, col, new Weapon(weapon));
     }
+
+    public boolean placeShips(int row, int col, int m, char v) { return map.placeShips(row,col,m,v); }
 
     public boolean isAlive() { return map.hasShips(); }
 }

@@ -8,28 +8,48 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-//TODO: Have to create some good tests for Player, we haven't done that yet
-//TODO: Need to test if we can sink a ship
-//TODO: Need to test if game can be ended by sinking all of the ships
 public class PlayerTest {
-    @Test
-    public void playerCreated() {
-        Player player = new Player("test", new Map());
-    }
-
     @Test
     public void playerCreated1() {
         Player player = new Player("test", new Map());
         assertThat(player.getName(), is("test"));
     }
 
+    //No ships, so not alive
     @Test
-    public void playerIsAlive() {
-        //create player with map, attack remaining ship, check if isAlive is set to false
+    public void playerIsAlive1() {
+        Player player = new Player("test", new Map());
+        player.placeShips(1,2,2,'V');
+        assertThat(player.isAlive(), is(true));
     }
 
+    //No ships, so not alive
     @Test
-    public void playerGotAttacked() {
-        //create player with map, attack fleet, check if map and fields are updated properly
+    public void playerIsAlive2() {
+        Player player = new Player("test", new Map());
+        assertThat(player.isAlive(), is(false));
+    }
+
+    //Had ships but lost ships, so dead
+    @Test
+    public void playerIsAlive3() {
+        Player player = new Player("test", new Map());
+        player.placeShips(1,2,2,'V');
+        assertThat(player.isAlive(), is(true));
+        player.getAttacked(1,2,"mine");
+        player.getAttacked(2,2,"mine");
+        assertThat(player.isAlive(),is(false));
+    }
+
+    //Player has multiple ships
+    @Test
+    public void playerIsAlive4() {
+        Player player = new Player("test", new Map());
+        player.placeShips(1,2,2,'V');
+        player.placeShips(4,7,2,'H');
+        assertThat(player.isAlive(), is(true));
+        player.getAttacked(1,2,"mine");
+        player.getAttacked(2,2,"mine");
+        assertThat(player.isAlive(),is(false));
     }
 }

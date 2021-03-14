@@ -18,7 +18,7 @@ public class MapTest {
     @Test
     public void checkSetMap(){ //Choose if vertical or Horizontal, and size of ship, and where the head of the coordinate will be.
         Map map = new Map();
-        map.placeShips(1,2,3,'V');//change the second parameter to length
+        map.placeShips(1,2,3,'V', false, "destroyer");//change the second parameter to length
         //V for vertical
         //H for Horizontal
         assertThat(map.hasShips(),is(true));
@@ -27,7 +27,7 @@ public class MapTest {
     @Test
     public void checkLengthSetMap(){ //edge case: choosing an invalid length
         Map map = new Map();
-        map.placeShips(11,2,30,'V');//invalid value for m
+        map.placeShips(11,2,30,'V', false, "mistake");//invalid value for m
         assertThat(map.hasShips(),is(false));
     }
 
@@ -35,7 +35,7 @@ public class MapTest {
     @Test
     public void checkDiagonal(){
         Map map = new Map();
-        map.placeShips(1,2, 2, 'V' );
+        map.placeShips(1,2, 2, 'V', false, "minesweeper");
     }
 
     //More Test
@@ -50,13 +50,13 @@ public class MapTest {
     @Test
     public void checkifHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.placeShips(1,1, 2, 'V');
+        map.placeShips(1,1, 2, 'V', false, "minesweeper");
         assertThat(map.getAttacked(1,1, new Weapon("mine")), is(true));
     }
     @Test
     public void checkifAlreadyHit(){//checks if gettattacked return a Hit
         Map map = new Map();
-        map.placeShips(1,2, 2, 'V');
+        map.placeShips(1,2, 2, 'V', false, "minesweeper");
         map.getAttacked(1,2, new Weapon("mine"));//even tho this prints out
         assertThat(map.getAttacked(1,2, new Weapon("mine")), is(false));
     }
@@ -74,16 +74,17 @@ public class MapTest {
     @Test
     public void checkifShipsleft(){ //Checks if there are any ships left
         Map map = new Map();
-        map.placeShips(1,2, 3, 'V');
+        map.placeShips(1,2, 3, 'V', false, "destroyer");
         assertThat(map.hasShips(),is(true));
     }
 
     @Test //test if weapon can be used to attack
     public void sonarPulseWasUsed() {
         Map map = new Map();
-        map.placeShips(1,2, 3, 'V');
-        map.placeShips(5,5, 2, 'V');
-        map.placeShips(6,6, 2, 'H');
+        map.placeShips(1,2, 3, 'V', false, "destroyer");
+        map.placeShips(5,5, 2, 'V', false, "minesweeper");
+        map.placeShips(6,6, 2, 'H', false, "minesweeper");
+        map.placeShips(1,2, 4, 'H', true, "submarine");
         map.getAttacked(6,6, new Weapon("mine"));
         map.getAttacked(6,7, new Weapon("mine"));
         map.getAttacked(9,7, new Weapon("mine"));
@@ -93,9 +94,9 @@ public class MapTest {
     @Test
     public void canOnlyUseTwo() {
         Map map = new Map();
-        map.placeShips(1,2, 3, 'V');
-        map.placeShips(5,5, 2, 'V');
-        map.placeShips(6,6, 2, 'H');
+        map.placeShips(1,2, 3, 'V', false, "destroyer");
+        map.placeShips(5,5, 2, 'V', false, "minesweeper");
+        map.placeShips(6,6, 2, 'H', false, "minesweeper");
         map.getAttacked(6,6, new Weapon("mine"));
         map.getAttacked(6,7, new Weapon("mine"));
         map.getAttacked(9,7, new Weapon("mine"));
@@ -110,9 +111,9 @@ public class MapTest {
     @Test
     public void printMultipleShipsAndAttacks() {
         Map map = new Map();
-        map.placeShips(1,2, 3, 'V');
-        map.placeShips(5,5, 2, 'V');
-        map.placeShips(6,6, 2, 'H');
+        map.placeShips(1,2, 3, 'V', false, "destroyer");
+        map.placeShips(5,5, 2, 'V', false, "minesweeper");
+        map.placeShips(6,6, 2, 'H', false, "minesweeper");
         map.getAttacked(6,6, new Weapon("mine"));
         map.getAttacked(6,7, new Weapon("mine"));
         map.getAttacked(9,7, new Weapon("mine"));
@@ -123,7 +124,7 @@ public class MapTest {
     @Test
     public void attackCaptainQTwice() { //testing battleship
         Map map = new Map();
-        map.placeShips(0,0,4,'H');
+        map.placeShips(0,0,4,'H', false, "battleship");
         map.getAttacked(0,2, new Weapon("mine"));
         map.getMaps();
         map.getAttacked(0,2, new Weapon("mine"));
@@ -134,7 +135,7 @@ public class MapTest {
     @Test
     public void attackCaptainQTwiceDestroyer() { //testing destroyer
         Map map = new Map();
-        map.placeShips(1,4,3,'H');
+        map.placeShips(1,4,3,'H', false, "destroyer");
         map.getAttacked(1,5, new Weapon("mine"));
         map.getMaps();
         map.getAttacked(1,5, new Weapon("mine"));
@@ -145,11 +146,41 @@ public class MapTest {
     @Test
     public void attackCaptainQTwiceMinesweeper() { //testing minesweeper
         Map map = new Map();
-        map.placeShips(1,4,2,'H');
+        map.placeShips(1,4,2,'H', false, "minesweeper");
         map.getAttacked(1,4, new Weapon("mine"));
         map.getMaps();
         assertThat(map.hasShips(),is(false));
     }
 
+    @Test
+    public void placeIllegalSub() {
+        Map map = new Map();
+        map.placeShips(0,1,4,'H',true,"submarine");
+        map.placeShips(5,9,4,'V',true,"submarine");
+        assertThat(map.hasShips(), is(false));
+        map.placeShips(2,2,2,'H',false,"minesweeper");
+        assertThat(map.placeShips(2,2,4,'H',false,"submarine"),is(false));
+    }
 
+    @Test
+    public void subFailAttack() {
+        Map map = new Map();
+        map.placeShips(2,2,4,'V',true,"submarine");
+        map.getAttacked(2,2, new Weapon("mine"));
+        map.getMaps();
+    }
+
+    @Test
+   public void subSurfaceAttack() {
+        Map map = new Map();
+        map.placeShips(2,2,4,'V',false,"submarine");
+        map.getAttacked(5,2, new Weapon("mine"));
+        map.getAttacked(4,2, new Weapon("mine"));
+        map.getMaps();
+        map.getAttacked(5,2, new Weapon("mine"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
+    //TODO: write tests for space laser
 }

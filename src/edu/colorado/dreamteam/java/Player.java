@@ -17,7 +17,7 @@ public class Player {
         return map.getAttacked(row, col, new Weapon(weapon));
     }
 
-    public boolean placeShips(int row, int col, int m, char v) { return map.placeShips(row,col,m,v); }
+    public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name) { return map.placeShips(row,col,m,v, submerged, name); }
 
     public boolean isAlive() { return map.hasShips(); }
 }

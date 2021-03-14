@@ -13,12 +13,15 @@ public class Ship {
     private Coordinate[] coordinates;
     private Coordinate captainQuart;
     private int armor;
+    private boolean submerged;
 
-    public Ship(String name, int size, Coordinate[] coordinates) {
+    public Ship(String name, int size, Coordinate[] coordinates, boolean submerged) {
         this.name = name;
         this.health = size;
         this.coordinates = coordinates;
         captainQuart = coordinates[coordinates.length-2];
+        this.submerged = submerged;
+        //by convention, must initialize ship coordinates with the stub as last coordinate
 
         if(size > 2) {
             armor = 1;
@@ -30,7 +33,12 @@ public class Ship {
 
     public void setCaptainQuart() {
         captainQuart = coordinates[coordinates.length-2];
-        captainQuart.setStatus(Coordinate.Status.CAPTAINQ);
+        if (submerged) {
+            captainQuart.setBelowSurfaceStatus(Coordinate.Status.CAPTAINQ);
+        }
+        else {
+            captainQuart.setStatus(Coordinate.Status.CAPTAINQ);
+        }
         if(health > 2) {
             armor = 1;
         }

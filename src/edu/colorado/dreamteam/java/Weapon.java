@@ -7,7 +7,7 @@ public class Weapon {
         this.weaponType = weaponType;
     }
 
-    public boolean isSonarPulse() {
-        return weaponType.equals("sonar_pulse");
+    public String getWeaponType() {
+        return weaponType;
     }
 }

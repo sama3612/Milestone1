@@ -1,12 +1,11 @@
 package edu.colorado.dreamteam.test;
 
-import edu.colorado.dreamteam.java.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
-import org.junit.Before;
+import edu.colorado.dreamteam.java.Map;
+import edu.colorado.dreamteam.java.Player;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PlayerTest {
     @Test
@@ -19,7 +18,7 @@ public class PlayerTest {
     @Test
     public void playerIsAlive1() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V');
+        player.placeShips(1,2,2,'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
     }
 
@@ -34,7 +33,7 @@ public class PlayerTest {
     @Test
     public void playerIsAlive3() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V');
+        player.placeShips(1,2,2,'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
         player.getAttacked(1,2,"mine");
         player.getAttacked(2,2,"mine");
@@ -45,8 +44,8 @@ public class PlayerTest {
     @Test
     public void playerIsAlive4() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V');
-        player.placeShips(4,7,2,'H');
+        player.placeShips(1,2,2,'V', false, "minesweeper");
+        player.placeShips(4,7,2,'H', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
         player.getAttacked(1,2,"mine");
         player.getAttacked(2,2,"mine");

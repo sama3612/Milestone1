@@ -13,10 +13,12 @@ public class Coordinate {
     private int x;  /*x-coordinate*/
     private int y;  /*y-coordinate*/
     private Status status;
+    private Status belowSurfaceStatus;
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
         this.status = Status.EMPTY;
+        this.belowSurfaceStatus = Status.EMPTY;
     }
 
     public int getX() {
@@ -45,6 +47,14 @@ public class Coordinate {
 
     public boolean equals(Coordinate c) {
         return getX() == c.getX() && getY() == c.getY();
+    }
+
+    public Status getBelowSurfaceStatus() {
+        return belowSurfaceStatus;
+    }
+
+    public void setBelowSurfaceStatus(Status belowSurfaceStatus) {
+        this.belowSurfaceStatus = belowSurfaceStatus;
     }
 
     @Override

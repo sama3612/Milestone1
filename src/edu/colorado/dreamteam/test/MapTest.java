@@ -171,7 +171,7 @@ public class MapTest {
     }
 
     @Test
-   public void subSurfaceAttack() {
+    public void subSurfaceAttack() {
         Map map = new Map();
         map.placeShips(2,2,4,'V',false,"submarine");
         map.getAttacked(5,2, new Weapon("mine"));
@@ -182,5 +182,16 @@ public class MapTest {
         assertThat(map.hasShips(), is(false));
     }
 
-    //TODO: write tests for space laser
+
+    @Test
+    public void spaceLaser() {
+        Map map = new Map();
+        map.placeShips(2,2,4,'V',true,"submarine");
+        map.placeShips(1,4,2,'H', false, "minesweeper");
+        map.getAttacked(1,4, new Weapon("mine"));
+        map.getAttacked(5,2, new Weapon("space_laser"));
+        map.getAttacked(5,2, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
 }

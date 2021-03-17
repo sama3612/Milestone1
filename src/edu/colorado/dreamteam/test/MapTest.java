@@ -194,4 +194,19 @@ public class MapTest {
         map.getMaps();
         assertThat(map.hasShips(), is(false));
     }
+
+    @Test
+    public void spaceLaserDoubleHit() {
+        Map map = new Map();
+        map.placeShips(2,2,4,'V',true,"submarine");
+        map.placeShips(1,4,2,'H', false, "minesweeper");
+        map.placeShips(3,2,4,'V', false,"battleship");
+        map.getAttacked(1,4, new Weapon("mine"));
+        map.getAttacked(5,2, new Weapon("space_laser"));
+        map.getAttacked(5,2, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
+    //TODO need to redo and check get maps and clarify what is displayed and what isn't
 }

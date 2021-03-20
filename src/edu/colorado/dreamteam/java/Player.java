@@ -21,3 +21,5 @@ public class Player {
 
     public boolean isAlive() { return map.hasShips(); }
 }
+
+//testing to see if my intellj is broken :-)

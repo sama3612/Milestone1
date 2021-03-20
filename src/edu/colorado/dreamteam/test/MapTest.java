@@ -183,25 +183,4 @@ public class MapTest {
     }
 
     //TODO: write tests for space laser
-    @Test
-    public void moveShip(){
-        Map map = new Map();
-        map.placeShips(2,2,3,'H',false,"minesweeper");
-        map.placeShips(5,2,3,'H',false,"minesweeper");
-        map.placeShips(9,2,4,'H',false,"minesweeper");
-        map.getMaps();
-        assertThat(map.moveShips('N'),is(true));
-        map.getMaps();
-        map.getAttacked(9,6, new Weapon("mine"));
-        map.getMaps();
-    }
-    @Test
-    public void shipatEdge(){
-        Map map = new Map();
-        map.placeShips(0,2,3,'H',false,"minesweeper");
-        map.getMaps();
-        assertThat(map.moveShips('N'),is(false));
-        map.getMaps();
-    }
-
 }

@@ -65,9 +65,10 @@ public class Ship {
         }
         else {
             for (Coordinate c : coordinates) {
-                if ((c.equals(attack) )&&(c.getStatus() == Coordinate.Status.SHIP)) {
+                if (c.equals(attack) && c.getStatus() == Coordinate.Status.SHIP) {
                     c.setStatus(Coordinate.Status.HIT);
-                    health -= 1;
+                    System.out.println("HERE GETTIN");
+                    health =health - 1;
                     return true;
                 }
             }
@@ -86,9 +87,9 @@ public class Ship {
     public int getHealth() {
         return health;
     }
-    public boolean getSubmerdge(){
-        return submerged;
-    }
+//    public boolean getSubmerdge(){
+//        return submerged;
+//    }
     public Coordinate[] getCoordinates() {
         return coordinates;
     }
@@ -110,7 +111,7 @@ public class Ship {
         return false;
     }
 
-    public Coordinate getCaptainQuart() {
-        return captainQuart;
-    }
+//    public Coordinate getCaptainQuart() {
+//        return captainQuart;
+//    }
 }

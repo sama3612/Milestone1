@@ -1,17 +1,20 @@
 package edu.colorado.dreamteam.java;
+import java.util.*;
 
-//TODO: add constructor for map so we can test the placing of ships
-//TODO: same coordinate can get attacked multiple times possibly
-//TODO: figure out better way to update the map and store all of the information
 public class Map {
 //    private int board[][];//Create a 2d array
     private Coordinate board[][];
     private Ship ships[];
+    private Stack<Character> Undostack;
+    private Stack<Character> Redostack;
     private int numShips;
     private boolean firstShipSunk;
     private int sonarPulsesLeft;
 
+
     public Map(){
+        Undostack = new Stack<Character>();
+        Redostack = new Stack<Character>();
         board = new Coordinate[10][10];
         ships = new Ship[4];
         numShips = 0;
@@ -28,7 +31,6 @@ public class Map {
         return numShips != 0;
     }
 
-//TODO: add check for if the ship gets sunk and update numShips accordingly
     public boolean getAttacked(int row, int col, Weapon weapon) {
         if(weapon.getWeaponType() == "sonar_pulse") {
             //Check if there are sonar pulses left
@@ -57,13 +59,13 @@ public class Map {
             if(col-2 >= 0) { //This is the top most point of the diamond sonar pulse
                 sonarBoard[row][col-2] = board[row][col-2].toString();
             }
-            if(row-2 >= 0) { //This is the top most point of the diamond sonar pulse
+            if(row-2 >= 0) {
                 sonarBoard[row-2][col] = board[row-2][col].toString();
             }
-            if(col+2 >= 0) { //This is the top most point of the diamond sonar pulse
+            if(col+2 >= 0) {
                 sonarBoard[row][col+2] = board[row][col+2].toString();
             }
-            if(row+2 >= 0) { //This is the top most point of the diamond sonar pulse
+            if(row+2 >= 0) {
                 sonarBoard[row+2][col] = board[row+2][col].toString();
             }
             getSonarMaps(sonarBoard);
@@ -202,7 +204,7 @@ public class Map {
         ship.setCaptainQuart();
         return true;
     }
-//TODO: Update this getMaps() with the new definition of board using enumerations
+
     //Return the map array!
     public void getMaps(){
         System.out.printf("   ");
@@ -235,40 +237,49 @@ public class Map {
     }
     //TODO: WORK ON THE UNDO METHOD
     public boolean moveShips(char M){
+        if(M=='N'){
+            Undostack.push('S');
+        }
+        else if(M=='S'){
+            Undostack.push('N');
+        }
+        else if(M=='E'){
+            Undostack.push('W');
+        }
+        else if(M=='W'){
+            Undostack.push('E');
+        }
+
         for(int i = 0; i<numShips; i++){
             Coordinate coors[] = new Coordinate[ships[i].getHealth()];//created an array for the updated coordinates
             int counter=0;
             for(Coordinate c : ships[i].getCoordinates()){
                 if(M=='S'&& c.getX()<9){
-                    board[c.getX()][c.getY()].setX(c.getX()+1);
-                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
-                    board[c.getX()-1][c.getY()].setStatus(Coordinate.Status.EMPTY);
-                    coors[counter++] = board[c.getX()][c.getY()];
+                    board[c.getX()+1][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.EMPTY);
+                    coors[counter++] = board[c.getX()+1][c.getY()];
                 }
                 else if(M=='N' && c.getX()>0){
-                    board[c.getX()][c.getY()].setX(c.getX()-1);
-                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
-                    board[c.getX()+1][c.getY()].setStatus(Coordinate.Status.EMPTY);
-                    coors[counter++] = board[c.getX()][c.getY()];
+                    board[c.getX()-1][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.EMPTY);
+                    coors[counter++] = board[c.getX()-1][c.getY()];
                 }
                 else if(M=='W' && c.getY()>0){
-                    board[c.getX()][c.getY()].setY(c.getY()-1);
-                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()][c.getY()-1].setStatus(Coordinate.Status.SHIP);
                     if(counter==ships[i].getHealth()-1){//only set the last sell to empty
-                        board[c.getX()][c.getY()+1].setStatus(Coordinate.Status.EMPTY);
+                        board[c.getX()][c.getY()].setStatus(Coordinate.Status.EMPTY);
                     }
-                    coors[counter++] = board[c.getX()][c.getY()];
+                    coors[counter++] = board[c.getX()][c.getY()-1];
                 }
                 else if(M=='E' && c.getY()<9){
-                    board[c.getX()][c.getY()].setY(c.getY()+1);
-                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()][c.getY()+1].setStatus(Coordinate.Status.SHIP);
                     if(counter==0) {//only set the first cell Empty
-                        board[c.getX()][c.getY()-1].setStatus(Coordinate.Status.EMPTY);
+                        board[c.getX()][c.getY()].setStatus(Coordinate.Status.EMPTY);
                     }
-                    coors[counter++] = board[c.getX()][c.getY()];
+                    coors[counter++] = board[c.getX()][c.getY()+1];
                 }
                 else{
-                    System.out.println("Cannot move that direction");
+                    System.out.println("Can not move in that direction");
                     return false;
                 }
             }
@@ -276,5 +287,16 @@ public class Map {
             ships[i].setCaptainQuart();
         }
         return true;
+    }
+    public void Undo(){
+        System.out.println("Undo Completed.");
+        moveShips(Undostack.peek());
+        Redostack.push(Undostack.peek());
+        Undostack.pop();
+    }
+    public void Redo(){
+        System.out.println("Redo Completed.");
+        moveShips(Redostack.peek());
+        Redostack.pop();
     }
 }

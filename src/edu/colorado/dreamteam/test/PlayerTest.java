@@ -18,7 +18,7 @@ public class PlayerTest {
     @Test
     public void playerIsAlive1() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V', false, "minesweeper");
+        player.placeShips(1, 2, 2, 'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
     }
 
@@ -33,22 +33,22 @@ public class PlayerTest {
     @Test
     public void playerIsAlive3() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V', false, "minesweeper");
+        player.placeShips(1, 2, 2, 'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
-        player.getAttacked(1,2,"mine");
-        player.getAttacked(2,2,"mine");
-        assertThat(player.isAlive(),is(false));
+        player.getAttacked(1, 2, "mine");
+        player.getAttacked(2, 2, "mine");
+        assertThat(player.isAlive(), is(false));
     }
 
     //Player has multiple ships
     @Test
     public void playerIsAlive4() {
         Player player = new Player("test", new Map());
-        player.placeShips(1,2,2,'V', false, "minesweeper");
-        player.placeShips(4,7,2,'H', false, "minesweeper");
+        player.placeShips(1, 2, 2, 'V', false, "minesweeper");
+        player.placeShips(4, 7, 2, 'H', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
-        player.getAttacked(1,2,"mine");
-        player.getAttacked(2,2,"mine");
-        assertThat(player.isAlive(),is(false));
+        player.getAttacked(1, 2, "mine");
+        player.getAttacked(2, 2, "mine");
+        assertThat(player.isAlive(), is(false));
     }
 }

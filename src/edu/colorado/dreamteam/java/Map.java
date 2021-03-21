@@ -102,6 +102,7 @@ public class Map {
                     }
                 }
             } else if (returnValue == true) {
+
                 return true;
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                     System.out.println("This spot was attacked and Hit already!");

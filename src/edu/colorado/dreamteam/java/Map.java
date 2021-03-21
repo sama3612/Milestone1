@@ -41,7 +41,6 @@ public class Map {
                 System.out.println("You need to destroy a ship first!");
                 return false;
             }
-
             String sonarBoard[][] = new String[10][10];
             for( int i=0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
@@ -217,5 +216,49 @@ public class Map {
             }
             System.out.println();
         }
+    }
+    //TODO: WORK ON THE UNDO METHOD
+    public boolean moveShips(char M){
+        for(int i = 0; i<numShips; i++){
+            Coordinate coors[] = new Coordinate[ships[i].getHealth()];//created an array for the updated coordinates
+            int counter=0;
+            for(Coordinate c : ships[i].getCoordinates()){
+                if(M=='S'&& c.getX()<9){
+                    board[c.getX()][c.getY()].setX(c.getX()+1);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()-1][c.getY()].setStatus(Coordinate.Status.EMPTY);
+                    coors[counter++] = board[c.getX()][c.getY()];
+                }
+                else if(M=='N' && c.getX()>0){
+                    board[c.getX()][c.getY()].setX(c.getX()-1);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    board[c.getX()+1][c.getY()].setStatus(Coordinate.Status.EMPTY);
+                    coors[counter++] = board[c.getX()][c.getY()];
+                }
+                else if(M=='W' && c.getY()>0){
+                    board[c.getX()][c.getY()].setY(c.getY()-1);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    if(counter==ships[i].getHealth()-1){//only set the last sell to empty
+                        board[c.getX()][c.getY()+1].setStatus(Coordinate.Status.EMPTY);
+                    }
+                    coors[counter++] = board[c.getX()][c.getY()];
+                }
+                else if(M=='E' && c.getY()<9){
+                    board[c.getX()][c.getY()].setY(c.getY()+1);
+                    board[c.getX()][c.getY()].setStatus(Coordinate.Status.SHIP);
+                    if(counter==0) {//only set the first cell Empty
+                        board[c.getX()][c.getY()-1].setStatus(Coordinate.Status.EMPTY);
+                    }
+                    coors[counter++] = board[c.getX()][c.getY()];
+                }
+                else{
+                    System.out.println("Cannot move that direction");
+                    return false;
+                }
+            }
+            ships[i].moveCoordinates(coors);//Updates the new coordinates for the ships
+            ships[i].setCaptainQuart();
+        }
+        return true;
     }
 }

@@ -7,7 +7,7 @@ public class Ship {
     // TODO: Understand encapsulation
     // TODO: Understand what these todo comments mean
     //Team DreamTeam, pair 2 was here
-
+    // TODO: create a method which checks if ships overlay.
     private String name;
     private int health;
     private Coordinate[] coordinates;
@@ -65,7 +65,7 @@ public class Ship {
         }
         else {
             for (Coordinate c : coordinates) {
-                if (c.equals(attack) && c.getStatus() == Coordinate.Status.SHIP) {
+                if ((c.equals(attack) )&&(c.getStatus() == Coordinate.Status.SHIP)) {
                     c.setStatus(Coordinate.Status.HIT);
                     health -= 1;
                     return true;
@@ -86,9 +86,17 @@ public class Ship {
     public int getHealth() {
         return health;
     }
-
+    public boolean getSubmerdge(){
+        return submerged;
+    }
     public Coordinate[] getCoordinates() {
         return coordinates;
+    }
+
+    public boolean moveCoordinates(Coordinate[] coord){
+        this.coordinates=coord;
+        return true;
+
     }
 
     public boolean overlaps(Ship ship) {            //method to check that a ship's coordinates does not overlap with other ships

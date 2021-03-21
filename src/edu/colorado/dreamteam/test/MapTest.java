@@ -51,7 +51,8 @@ public class MapTest {
     public void checkifHit(){//checks if gettattacked return a Hit
         Map map = new Map();
         map.placeShips(1,1, 2, 'V', false, "minesweeper");
-        assertThat(map.getAttacked(1,1, new Weapon("mine")), is(true));
+        map.getAttacked(1,1, new Weapon("mine"));
+        map.getMaps();
     }
     @Test
     public void checkifAlreadyHit(){//checks if gettattacked return a Hit
@@ -66,7 +67,7 @@ public class MapTest {
         Map map = new Map();
         map.getAttacked(1,1, new Weapon("mine"));
         assertThat(map.getAttacked(1,1, new Weapon("mine")),is(false));
-//        map.getAttacked(new Coordinate(1, 1));//checks if its a miss again
+    //        map.getAttacked(new Coordinate(1, 1));//checks if its a miss again
 
     }
 
@@ -120,7 +121,7 @@ public class MapTest {
         map.getMaps();
     }
 
-//TODO: add assertion
+    //TODO: add assertion
     @Test
     public void attackCaptainQTwice() { //testing battleship
         Map map = new Map();
@@ -181,8 +182,44 @@ public class MapTest {
         map.getMaps();
         assertThat(map.hasShips(), is(false));
     }
+    @Test
+    public void MoveTest(){
+        Map map = new Map();
+        map.placeShips(1,4,2,'H', false, "minesweeper");
+        map.getMaps();
+        map.moveShips('N');
+        map.getMaps();
+    }
+    @Test
+    public void Moveoutofrange(){
+        Map map = new Map();
+        map.placeShips(0,4,2,'H', false, "minesweeper");
+        map.getMaps();// assert that this returns false.
+        map.moveShips('N');
+        map.getMaps();
+
+    }
+    @Test
+    public void Moveagain(){
+        Map map = new Map();
+        map.placeShips(1,4,2,'H', false, "minesweeper");
+        map.getMaps();
+        map.moveShips('N');
+        map.getMaps();
+        map.moveShips('E');
+        map.getMaps();
+    }
+    @Test
+    public void UndoMove(){
+        Map map = new Map();
+        map.placeShips(1,4,2,'H', false, "minesweeper");
+        map.getMaps();
+        map.moveShips('N');
+//        Undo();
+    }
 
 
+    //TODO: write tests for space laser
     @Test
     public void spaceLaser() {
         Map map = new Map();

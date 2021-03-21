@@ -69,8 +69,7 @@ public class Map {
             getSonarMaps(sonarBoard);
             sonarPulsesLeft--;
             return true;
-        }
-        else {
+        } else {
             boolean returnValue = false;
             if(weapon.getWeaponType() == "space_laser") {
                 if (!firstShipSunk) {
@@ -101,8 +100,7 @@ public class Map {
                         returnValue = true;
                     }
                 }
-            } else if (returnValue == true) {
-
+            } else if(returnValue) {
                 return true;
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                     System.out.println("This spot was attacked and Hit already!");
@@ -112,7 +110,7 @@ public class Map {
                 board[row][col].setStatus(Coordinate.Status.MISS);
                 System.out.println("That was a Miss!");
             }
-            return false;
+            return returnValue;
         }
     }
     //Set ships on map on the given locations!
@@ -167,8 +165,25 @@ public class Map {
             }
         }
 
+        Ship ship;
 
-        Ship ship = new Ship(name, m, coors, submerged);
+        switch (name) {
+            case "minesweeper":
+                ship = new Minesweeper(name, m, coors, submerged);
+                break;
+            case "destroyer":
+                ship = new Destroyer(name, m, coors, submerged);
+                break;
+            case "battleship":
+                ship = new Battleship(name, m, coors, submerged);
+                break;
+            case "submarine":
+                ship = new Submarine(name, m, coors, submerged);
+                break;
+            default:
+                System.out.println("Invalid type of ship!");
+                return false;
+        }
         if(!submerged){
             for(int i = 0; i < numShips; i++) {
                 if(ships[i].overlaps(ship)) return false;

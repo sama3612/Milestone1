@@ -92,6 +92,8 @@ public class MapTest {
     @Test //test if weapon can be used to attack
     public void sonarPulseWasUsed() {
         Map map = new Map();
+        map.getAttacked(1, 2, new Weapon("sonar_pulse"));
+        map.getAttacked(1, 2, new Weapon("space_laser"));
         map.placeShips(1, 2, 3, 'V', false, "destroyer");
         map.placeShips(5, 5, 2, 'V', false, "minesweeper");
         map.placeShips(6, 6, 2, 'H', false, "minesweeper");
@@ -269,6 +271,23 @@ public class MapTest {
         map.placeShips(1, 4, 2, 'H', false, "minesweeper");
         map.placeShips(3, 2, 4, 'V', false, "battleship");
         map.getAttacked(1, 4, new Weapon("mine"));
+        map.getAttacked(1, 5, new Weapon("mine"));
+        map.getAttacked(5, 2, new Weapon("space_laser"));
+        map.getAttacked(5, 2, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
+    @Test
+    public void spaceLaserSubmarineHit() {
+        Map map = new Map();
+        map.placeShips(2, 2, 4, 'V', true, "submarine");
+        map.placeShips(2, 9, 4, 'V', true, "submarine");
+        map.placeShips(1, 4, 2, 'H', false, "minesweeper");
+        map.getAttacked(1, 4, new Weapon("mine"));
+        map.getAttacked(1, 5, new Weapon("mine"));
+        map.getAttacked(2, 2, new Weapon("space_laser"));
+        map.getAttacked(3, 2, new Weapon("space_laser"));
         map.getAttacked(5, 2, new Weapon("space_laser"));
         map.getAttacked(5, 2, new Weapon("space_laser"));
         map.getMaps();

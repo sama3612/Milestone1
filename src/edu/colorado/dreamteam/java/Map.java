@@ -81,10 +81,9 @@ public class Map {
                 else {
                     if(board[row][col].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.FAKEEMPTY) {
                         for(int i = 0; i < numShips; i++) {
-                            if(ships[i].getAttacked(row,col)) {
+                            if(ships[i].getAttackedBelow(row,col)) {
                                 if(ships[i].isSunk()){
                                     numShips--;
-                                    firstShipSunk = true;
                                 }
                                 returnValue = true;
                             }

@@ -294,5 +294,19 @@ public class MapTest {
         assertThat(map.hasShips(), is(false));
     }
 
+    @Test
+    public void invisibilityTest1() {
+        Map map = new Map();
+        map.placeShips(2, 2, 4, 'V', true, "submarine");
+        map.placeShips(7, 4, 2, 'H', false, "minesweeper");
+        map.placeShips(1, 1, 4, 'H', false, "battleship");
+        map.placeShips(5, 5, 3, 'H', false, "destroyer");
+        map.getMaps();
+        map.makeInvisible("minesweeper");
+        map.makeInvisible("battleship");
+        map.makeInvisible("destroyer");
+        map.getMaps();
+    }
+
     //TODO need to redo and check get maps and clarify what is displayed and what isn't
 }

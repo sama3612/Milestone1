@@ -298,4 +298,15 @@ public class Map {
         moveShips(Redostack.peek());
         Redostack.pop();
     }
+
+    public void makeInvisible(String name) {
+        for (Ship ship : ships) {
+            ship.getAttackedBelow(-1,-1);
+            if (ship.name.equals(name)) {
+                if (ship.hasFullHealth()) {
+                    ship.makeInvisible();
+                }
+            }
+        }
+    }
 }

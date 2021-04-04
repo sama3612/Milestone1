@@ -1,26 +1,30 @@
 package edu.colorado.dreamteam.java;
 // This is the  baseclass for your ship.  Modify accordingly
 // TODO: practice good OO design
-public class Ship {
+public abstract class Ship {
     //Dream Team pair 1 was here
     // TODO: create appropriate getter and setter methods
     // TODO: Understand encapsulation
     // TODO: Understand what these todo comments mean
     //Team DreamTeam, pair 2 was here
     // TODO: create a method which checks if ships overlay.
-    private String name;
-    private int health;
-    private Coordinate[] coordinates;
-    private Coordinate captainQuart;
-    private int armor;
-    private boolean submerged;
+    protected String name;
+    protected int health;
+    protected Coordinate[] coordinates;
+    protected Coordinate captainQuart;
+    protected int armor;
+    protected boolean submerged;
+    protected boolean fullHeath;
+    protected Coordinate[] oldStatus;
 
     public Ship(String name, int size, Coordinate[] coordinates, boolean submerged) {
         this.name = name;
         this.health = size;
         this.coordinates = coordinates;
+        this.oldStatus = new Coordinate[coordinates.length];
         captainQuart = coordinates[coordinates.length-2];
         this.submerged = submerged;
+        fullHeath = true;
         //by convention, must initialize ship coordinates with the stub as last coordinate
 
         if(size > 2) {
@@ -60,6 +64,7 @@ public class Ship {
                     c.setStatus(Coordinate.Status.HIT);
                 }
                 health = 0;
+                fullHeath = false;
                 return true;
             }
         }
@@ -69,6 +74,7 @@ public class Ship {
                     c.setStatus(Coordinate.Status.HIT);
                     System.out.println("HERE GETTIN");
                     health =health - 1;
+                    fullHeath = false;
                     return true;
                 }
             }
@@ -76,38 +82,7 @@ public class Ship {
         }
     }
 
-    public Boolean getAttackedBelow(int row, int col) {     //method to handle a ship being shot at
-        boolean returnValue = false;
-        if(submerged) {
-            Coordinate attack = new Coordinate(row, col);
-            if(captainQuart.equals(attack)) {
-                if(armor != 0){
-                    armor = 0;
-                    captainQuart.setBelowSurfaceStatus(Coordinate.Status.FAKEEMPTY);
-                    returnValue = false;
-                }
-                else{
-                    for(Coordinate c : coordinates) {
-                        c.setBelowSurfaceStatus(Coordinate.Status.HIT);
-                    }
-                    health = 0;
-                    returnValue = true;
-                }
-            }
-            else {
-                for (Coordinate c : coordinates) {
-                    if (c.equals(attack) && c.getBelowSurfaceStatus() == Coordinate.Status.SHIP) {
-                        c.setBelowSurfaceStatus(Coordinate.Status.HIT);
-                        System.out.println("HERE GETTIN");
-                        health =health - 1;
-                        returnValue = true;
-                    }
-                }
-                returnValue = false;
-            }
-        }
-        return returnValue;
-    }
+    public abstract Boolean getAttackedBelow(int row, int col);
 
     public Boolean isSunk() {
         return health <= 0;
@@ -144,7 +119,14 @@ public class Ship {
         return false;
     }
 
-//    public Coordinate getCaptainQuart() {
-//        return captainQuart;
-//    }
+    public boolean hasFullHealth() {
+        return fullHeath;
+    }
+
+    public void makeInvisible() {
+        System.arraycopy(coordinates,0,oldStatus,0,coordinates.length);
+        for (Coordinate c : coordinates) {
+            c.setStatus(Coordinate.Status.FAKEEMPTY);
+        }
+    }
 }

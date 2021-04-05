@@ -1,13 +1,5 @@
 package edu.colorado.dreamteam.java;
-// This is the  baseclass for your ship.  Modify accordingly
-// TODO: practice good OO design
 public abstract class Ship {
-    //Dream Team pair 1 was here
-    // TODO: create appropriate getter and setter methods
-    // TODO: Understand encapsulation
-    // TODO: Understand what these todo comments mean
-    //Team DreamTeam, pair 2 was here
-    // TODO: create a method which checks if ships overlay.
     protected String name;
     protected int health;
     protected Coordinate[] coordinates;

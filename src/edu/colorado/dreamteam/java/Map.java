@@ -32,82 +32,87 @@ public class Map {
         return numShips != 0;
     }
 
+    public boolean stopper(){
+        disabled = true;
+        return true;
+    }
+    public boolean sonarPulse(int row, int col){
+        if(sonarPulsesLeft <= 0) {
+            System.out.println("You are out of sonar pulses!");
+            return false;
+        }
+        //Check if at least one ship has been destroyed yet
+        if(!firstShipSunk) {
+            System.out.println("You need to destroy a ship first!");
+            return false;
+        }
+        String sonarBoard[][] = new String[10][10];
+        for( int i=0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                sonarBoard[i][j] = "0";
+            }
+        }
+        for(int i = row-1; i <= row+1; i++) {
+            for(int j = col-1; j <= col+1; j++) {
+                if(i >= 0 && i < 10 && j >= 0 && j < 10) {
+                    sonarBoard[i][j] = board[i][j].toString();
+                }
+            }
+        }
+        if(col-2 >= 0) { //This is the top most point of the diamond sonar pulse
+            sonarBoard[row][col-2] = board[row][col-2].toString();
+        }
+        if(row-2 >= 0) {
+            sonarBoard[row-2][col] = board[row-2][col].toString();
+        }
+        if(col+2 >= 0) {
+            sonarBoard[row][col+2] = board[row][col+2].toString();
+        }
+        if(row+2 >= 0) {
+            sonarBoard[row+2][col] = board[row+2][col].toString();
+        }
+        getSonarMaps(sonarBoard);
+        sonarPulsesLeft--;
+        return true;
+    }
+    public void spaceLaser(int row, int col, boolean returnValue) {
+        if (board[row][col].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.FAKEEMPTY) {
+            for (int i = 0; i < numShips; i++) {
+                if (ships[i].getAttackedBelow(row, col)) {
+                    if (ships[i].isSunk()) {
+                        numShips--;
+                    }
+                    returnValue = true;
+                }
+            }
+        }
+    }
     public boolean getAttacked(int row, int col, Weapon weapon) {
         if (weapon.getWeaponType() == "stopper") {
-            disabled = true;
-            return true;
+            return stopper();
         }
         else if(weapon.getWeaponType() == "sonar_pulse") {
-            //Check if there are sonar pulses left
-            if(sonarPulsesLeft <= 0) {
-                System.out.println("You are out of sonar pulses!");
-                return false;
-            }
-            //Check if at least one ship has been destroyed yet
-            if(!firstShipSunk) {
-                System.out.println("You need to destroy a ship first!");
-                return false;
-            }
-            String sonarBoard[][] = new String[10][10];
-            for( int i=0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    sonarBoard[i][j] = "0";
-                }
-            }
-            for(int i = row-1; i <= row+1; i++) {
-                for(int j = col-1; j <= col+1; j++) {
-                    if(i >= 0 && i < 10 && j >= 0 && j < 10) {
-                        sonarBoard[i][j] = board[i][j].toString();
-                    }
-                }
-            }
-            if(col-2 >= 0) { //This is the top most point of the diamond sonar pulse
-                sonarBoard[row][col-2] = board[row][col-2].toString();
-            }
-            if(row-2 >= 0) {
-                sonarBoard[row-2][col] = board[row-2][col].toString();
-            }
-            if(col+2 >= 0) {
-                sonarBoard[row][col+2] = board[row][col+2].toString();
-            }
-            if(row+2 >= 0) {
-                sonarBoard[row+2][col] = board[row+2][col].toString();
-            }
-            getSonarMaps(sonarBoard);
-            sonarPulsesLeft--;
-            return true;
+            return sonarPulse(row,col);
         } else {
             boolean returnValue = false;
-            if(weapon.getWeaponType() == "space_laser") {
+            if (weapon.getWeaponType() == "space_laser") {
                 if (!firstShipSunk) {
                     System.out.println("You need to destroy a ship first!");
                     return false;
-                }
-                else {
-                    if(board[row][col].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.FAKEEMPTY) {
-                        for(int i = 0; i < numShips; i++) {
-                            if(ships[i].getAttackedBelow(row,col)) {
-                                if(ships[i].isSunk()){
-                                    numShips--;
-                                }
-                                returnValue = true;
-                            }
-                        }
-                    }
+                } else {
+                    spaceLaser(row, col, returnValue);
                 }
             }
-            if(board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
-                for(int i = 0; i < numShips; i++) {
-                    if(ships[i].getAttacked(row,col)) {
-                        if(ships[i].isSunk()){
+            if (board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
+                for (int i = 0; i < numShips; i++) {
+                    if (ships[i].getAttacked(row, col)) {
+                        if (ships[i].isSunk()) {
                             numShips--;
                             firstShipSunk = true;
                         }
                         returnValue = true;
                     }
                 }
-            } else if(returnValue) {
-                return true;
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                 System.out.println("This spot was attacked and Hit already!");
             } else if(board[row][col].getStatus() == Coordinate.Status.MISS){

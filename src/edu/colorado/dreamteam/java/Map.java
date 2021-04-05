@@ -10,6 +10,7 @@ public class Map {
     private int numShips;
     private boolean firstShipSunk;
     private int sonarPulsesLeft;
+    private boolean disabled;
 
 
     public Map(){
@@ -32,7 +33,11 @@ public class Map {
     }
 
     public boolean getAttacked(int row, int col, Weapon weapon) {
-        if(weapon.getWeaponType() == "sonar_pulse") {
+        if (weapon.getWeaponType() == "stopper") {
+            disabled = true;
+            return true;
+        }
+        else if(weapon.getWeaponType() == "sonar_pulse") {
             //Check if there are sonar pulses left
             if(sonarPulsesLeft <= 0) {
                 System.out.println("You are out of sonar pulses!");
@@ -104,7 +109,7 @@ public class Map {
             } else if(returnValue) {
                 return true;
             } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
-                    System.out.println("This spot was attacked and Hit already!");
+                System.out.println("This spot was attacked and Hit already!");
             } else if(board[row][col].getStatus() == Coordinate.Status.MISS){
                 System.out.println("This spot was attacked and Missed already!");
             } else {
@@ -234,9 +239,13 @@ public class Map {
             System.out.println();
         }
     }
-    //TODO: WORK ON THE UNDO METHOD
+
     public boolean moveShips(char M){
-        if(M=='N'){
+        if (disabled == true)  {
+            System.out.println("You cannot move your ships right now because the enemy has disabled them with a stopper. ");
+            return false;
+        }
+        else if(M=='N'){
             Undostack.push('S');
         }
         else if(M=='S'){
@@ -300,13 +309,18 @@ public class Map {
     }
 
     public void makeInvisible(String name) {
-        for (Ship ship : ships) {
-            ship.getAttackedBelow(-1,-1);
-            if (ship.name.equals(name)) {
-                if (ship.hasFullHealth()) {
-                    ship.makeInvisible();
+        if (disabled == false) {
+            for (Ship ship : ships) {
+                ship.getAttackedBelow(-1, -1);
+                if (ship.name.equals(name)) {
+                    if (ship.hasFullHealth()) {
+                        ship.makeInvisible();
+                    }
                 }
             }
+        }
+        else {
+            System.out.println("Your ships have been disabled by enemy stopper, you cannot move them. ");
         }
     }
 }

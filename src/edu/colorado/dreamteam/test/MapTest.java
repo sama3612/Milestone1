@@ -308,5 +308,18 @@ public class MapTest {
         map.getMaps();
     }
 
+    @Test
+    public void disableTest() {
+        Map map = new Map();
+        map.placeShips(2, 2, 4, 'V', true, "submarine");
+        map.placeShips(7, 4, 2, 'H', false, "minesweeper");
+        map.placeShips(1, 1, 4, 'H', false, "battleship");
+        map.getMaps();
+        map.getAttacked(5, 2, new Weapon("stopper"));
+        map.moveShips('N');
+        map.makeInvisible("minesweeper");
+        map.getMaps();
+    }
+
     //TODO need to redo and check get maps and clarify what is displayed and what isn't
 }

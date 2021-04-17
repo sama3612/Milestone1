@@ -124,6 +124,8 @@ public class Map {
             return returnValue;
         }
     }
+
+
     //Set ships on map on the given locations!
     public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name) { //Go through coordinates and set those on the map =1
         //Takes in a coordinate and it sets those values to 1;

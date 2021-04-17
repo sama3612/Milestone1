@@ -321,5 +321,50 @@ public class MapTest {
         map.getMaps();
     }
 
-    //TODO need to redo and check get maps and clarify what is displayed and what isn't
+    @Test
+    public void submergedDestroyer() {
+        Map map = new Map();
+        map.placeShips(2, 2, 4, 'V', true, "destroyer");
+        map.placeShips(1, 4, 2, 'H', false, "minesweeper");
+        map.getMaps();
+        map.getAttacked(1, 4, new Weapon("mine"));
+        map.getAttacked(1, 5, new Weapon("mine"));
+        assertThat(map.hasShips(), is(true));
+        map.getAttacked(4, 2, new Weapon("space_laser"));
+        map.getAttacked(4, 2, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
+    @Test
+    public void submergedMinesweeper() {
+        Map map = new Map();
+        map.placeShips(2, 2, 2, 'V', true, "minesweeper");
+        map.placeShips(1, 4, 2, 'H', false, "minesweeper");
+        map.getMaps();
+        map.getAttacked(1, 4, new Weapon("mine"));
+        map.getAttacked(1, 5, new Weapon("mine"));
+        assertThat(map.hasShips(), is(true));
+        map.getAttacked(2, 2, new Weapon("space_laser"));
+        //map.getAttacked(4, 2, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
+    @Test
+    public void submergedBattleship() {
+        Map map = new Map();
+        map.placeShips(3, 5, 4, 'V', true, "battleship");
+        map.placeShips(1, 4, 2, 'H', false, "minesweeper");
+        map.getMaps();
+        map.getAttacked(1, 4, new Weapon("mine"));
+        map.getAttacked(1, 5, new Weapon("mine"));
+        assertThat(map.hasShips(), is(true));
+        map.getAttacked(5, 5, new Weapon("space_laser"));
+        map.getAttacked(5, 5, new Weapon("space_laser"));
+        map.getMaps();
+        assertThat(map.hasShips(), is(false));
+    }
+
 }
+

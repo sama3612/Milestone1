@@ -14,6 +14,7 @@ public class Coordinate {
     private int y;  /*y-coordinate*/
     private Status status;
     private Status belowSurfaceStatus;
+    private String attackType;
     public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
@@ -55,6 +56,14 @@ public class Coordinate {
 
     public void setBelowSurfaceStatus(Status belowSurfaceStatus) {
         this.belowSurfaceStatus = belowSurfaceStatus;
+    }
+
+    public String getAttackType() {
+        return attackType;
+    }
+
+    public void setAttackType(String attackType) {
+        this.attackType = attackType;
     }
 
     @Override

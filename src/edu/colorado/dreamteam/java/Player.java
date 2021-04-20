@@ -20,6 +20,8 @@ public class Player {
     public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name) { return map.placeShips(row,col,m,v, submerged, name); }
 
     public boolean isAlive() { return map.hasShips(); }
+
+    public void displayFullMap() { map.getMaps(); }
 }
 
 //testing to see if my intellj is broken :-)

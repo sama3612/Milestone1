@@ -39,6 +39,7 @@ public class Map {
     public boolean hasShips() {
         return numShips != 0;
     }
+
     public boolean stopper(){
         disabled = true;
         return true;
@@ -86,6 +87,7 @@ public class Map {
         if (board[row][col].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getBelowSurfaceStatus() == Coordinate.Status.FAKEEMPTY) {
             for (int i = 0; i < numShips; i++) {
                 if (ships[i].getAttackedBelow(row, col)) {
+                    System.out.println("That was a Hit!");
                     if (ships[i].isSunk()) {
                         numShips--;
                     }
@@ -95,6 +97,7 @@ public class Map {
         }
     }
     public boolean getAttacked(int row, int col, Weapon weapon) {
+        if (weapon.getWeaponType().equals("stopper")) {
         if(board[row][col].getStatus() == Coordinate.Status.BLU && weapon.getWeaponType() != "sonar_pulse"){
             System.out.println("You hit blucifer, your ship is about to get recked!!");
             points-=1;
@@ -104,11 +107,11 @@ public class Map {
 //            System.out.println("HEY");
             return stopper();
         }
-        else if(weapon.getWeaponType() == "sonar_pulse") {
+        else if(weapon.getWeaponType().equals("sonar_pulse")) {
             return sonarPulse(row,col);
         } else {
             boolean returnValue = false;
-            if (weapon.getWeaponType() == "space_laser") {
+            if (weapon.getWeaponType().equals("space_laser")) {
                 if (!firstShipSunk) {
                     System.out.println("You need to destroy a ship first!");
                     return false;
@@ -120,6 +123,7 @@ public class Map {
                 points+=1;
                 for (int i = 0; i < numShips; i++) {
                     if (ships[i].getAttacked(row, col)) {
+                        System.out.println("That was a Hit!");
                         if (ships[i].isSunk()) {
                             numShips--;
                             firstShipSunk = true;
@@ -161,6 +165,7 @@ public class Map {
                     coors[i] = board[row+i][col];
                 }
             } else {
+
                 return false;
             }
         } else {
@@ -253,7 +258,18 @@ public class Map {
         for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
             System.out.printf("%2d ", i);
             for (int j = 0; j < 10; j++) {
-                System.out.print(" " + board[i][j] + " ");
+                if(board[i][j].getStatus() == Coordinate.Status.SHIP || board[i][j].getStatus() == Coordinate.Status.CAPTAINQ) {
+                    System.out.print("\u001B[35m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
+                else if(board[i][j].getStatus() == Coordinate.Status.HIT){
+                    System.out.print("\u001B[31m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
+                else if(board[i][j].getStatus() == Coordinate.Status.MISS) {
+                    System.out.print("\u001B[32m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
+                else {
+                    System.out.print(" " + board[i][j] + " ");
+                }
             }
             System.out.println();
         }
@@ -344,14 +360,10 @@ public class Map {
 
     public void makeInvisible(String name) {
         if (disabled == false) {
-            System.out.println("Test1");
             for (Ship ship : ships) {
-                System.out.println("Test2");
                 ship.getAttackedBelow(-1, -1);
                 if (ship.name.equals(name)) {
-                    System.out.println("Test3");
                     if (ship.hasFullHealth()) {
-                        System.out.println("Test4");
                         ship.makeInvisible();
                     }
                 }

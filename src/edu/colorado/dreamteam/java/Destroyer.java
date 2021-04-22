@@ -5,7 +5,12 @@ public class Destroyer extends Ship {
         super(name,size,coordinates,submerged);
     }
 
-   // @Override
+//    @Override
+//    public Boolean getAttackedBelow(int row, int col) {
+//        return null;
+//    }
+
+    // @Override
 //    public Boolean getAttackedBelow(int row, int col) {
 //        boolean returnValue = false;
 //        if(submerged) {

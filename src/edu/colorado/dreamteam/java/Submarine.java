@@ -6,6 +6,11 @@ public class Submarine extends Ship {
     }
 
 //    @Override
+//    public Boolean getAttackedBelow(int row, int col) {
+//        return null;
+//    }
+
+//    @Override
 //    public Boolean getAttackedBelow(int row, int col) {     //method to handle a ship being shot at
 //        boolean returnValue = false;
 //        if(submerged) {

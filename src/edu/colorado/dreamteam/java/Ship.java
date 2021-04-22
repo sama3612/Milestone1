@@ -8,13 +8,19 @@ public abstract class Ship {
     protected boolean submerged;
     protected boolean fullHeath;
     protected Coordinate[] oldStatus;
+    private Map maps;
 
     public Ship(String name, int size, Coordinate[] coordinates, boolean submerged) {
+
         this.name = name;
         this.health = size;
+//        maps=new Map();
         this.coordinates = coordinates;
         this.oldStatus = new Coordinate[coordinates.length];
-        captainQuart = coordinates[coordinates.length-2];
+        if(size > 1){
+//            System.out.println("ISsue in Ship");
+            captainQuart = coordinates[coordinates.length-2];
+        }
         this.submerged = submerged;
         fullHeath = true;
         //by convention, must initialize ship coordinates with the stub as last coordinate
@@ -25,6 +31,8 @@ public abstract class Ship {
         else {
             armor = 0;
         }
+//        System.out.println("ISsue in Ship");
+
     }
 
     public void setCaptainQuart() {
@@ -45,6 +53,7 @@ public abstract class Ship {
 
     public Boolean getAttacked(int row, int col) {     //method to handle a ship being shot at
         Coordinate attack = new Coordinate(row, col);
+
         if(captainQuart.equals(attack)) {
             if(armor != 0){
                 armor = 0;
@@ -54,6 +63,7 @@ public abstract class Ship {
             else{
                 for(Coordinate c : coordinates) {
                     c.setStatus(Coordinate.Status.HIT);
+
                 }
                 health = 0;
                 fullHeath = false;
@@ -64,7 +74,6 @@ public abstract class Ship {
             for (Coordinate c : coordinates) {
                 if (c.equals(attack) && c.getStatus() == Coordinate.Status.SHIP) {
                     c.setStatus(Coordinate.Status.HIT);
-                    //System.out.println("HERE GETTIN");
                     health =health - 1;
                     fullHeath = false;
                     return true;
@@ -105,7 +114,7 @@ public abstract class Ship {
             }
         }
         return returnValue;
-    };
+    }
 
     public Boolean isSunk() {
         return health <= 0;
@@ -131,7 +140,7 @@ public abstract class Ship {
 
     }
 
-    public boolean overlaps(Ship ship) {            //method to check that a ship's coordinates does not overlap with other ships
+    public boolean overlaps(Ship ship) {//method to check that a ship's coordinates does not overlap with other ships
         for(Coordinate c1 : coordinates) {
             for(Coordinate c2 : ship.getCoordinates()) {
                 if(c1 == c2) {

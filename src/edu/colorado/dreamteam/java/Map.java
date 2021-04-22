@@ -11,14 +11,15 @@ public class Map {
     private boolean firstShipSunk;
     private int sonarPulsesLeft;
     private boolean disabled;
-
+    private int points;
 
     public Map(){
         Undostack = new Stack<Character>();
         Redostack = new Stack<Character>();
         board = new Coordinate[10][10];
-        ships = new Ship[4];
+        ships = new Ship[5];
         numShips = 0;
+        points=0;
         sonarPulsesLeft = 2;
         firstShipSunk = false;
         for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
@@ -27,11 +28,17 @@ public class Map {
             }
         }
     }
-
+    public int getPoints(){
+        System.out.println("Points:");
+        System.out.println(points);
+        return points;
+    }
+    public void setPoints(int points){
+        this.points=points;
+    }
     public boolean hasShips() {
         return numShips != 0;
     }
-
     public boolean stopper(){
         disabled = true;
         return true;
@@ -88,7 +95,13 @@ public class Map {
         }
     }
     public boolean getAttacked(int row, int col, Weapon weapon) {
+        if(board[row][col].getStatus() == Coordinate.Status.BLU && weapon.getWeaponType() != "sonar_pulse"){
+            System.out.println("You hit blucifer, your ship is about to get recked!!");
+            points-=1;
+            return true;
+        }
         if (weapon.getWeaponType() == "stopper") {
+//            System.out.println("HEY");
             return stopper();
         }
         else if(weapon.getWeaponType() == "sonar_pulse") {
@@ -104,6 +117,7 @@ public class Map {
                 }
             }
             if (board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
+                points+=1;
                 for (int i = 0; i < numShips; i++) {
                     if (ships[i].getAttacked(row, col)) {
                         if (ships[i].isSunk()) {
@@ -113,7 +127,7 @@ public class Map {
                         returnValue = true;
                     }
                 }
-            } else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
+            }else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
                 System.out.println("This spot was attacked and Hit already!");
             } else if(board[row][col].getStatus() == Coordinate.Status.MISS){
                 System.out.println("This spot was attacked and Missed already!");
@@ -147,7 +161,6 @@ public class Map {
                     coors[i] = board[row+i][col];
                 }
             } else {
-
                 return false;
             }
         } else {
@@ -193,16 +206,27 @@ public class Map {
             case "submarine":
                 ship = new Submarine(name, m, coors, submerged);
                 break;
+            case "blucifer":
+                ship = new Blucifer(name, m, coors, submerged);
+                break;
             default:
                 System.out.println("Invalid type of ship!");
                 return false;
         }
         if(!submerged){
             for(int i = 0; i < numShips; i++) {
-                if(ships[i].overlaps(ship)) return false;
+                if(ships[i].overlaps(ship)) {
+                    return false;
+                }
             }
             for(Coordinate c : ship.getCoordinates()) {
-                c.setStatus(Coordinate.Status.SHIP);
+                if(name=="blucifer"){
+                    c.setStatus(Coordinate.Status.BLU);
+                }
+                else{
+                    c.setStatus(Coordinate.Status.SHIP);
+                }
+
             }
         }
         else {
@@ -212,7 +236,10 @@ public class Map {
         }
         ships[numShips++] = ship;
         //Initialize coordinates as SHIP
-        ship.setCaptainQuart();
+        if(m!=1){
+            ship.setCaptainQuart();
+        }
+
         return true;
     }
 
@@ -317,10 +344,14 @@ public class Map {
 
     public void makeInvisible(String name) {
         if (disabled == false) {
+            System.out.println("Test1");
             for (Ship ship : ships) {
+                System.out.println("Test2");
                 ship.getAttackedBelow(-1, -1);
                 if (ship.name.equals(name)) {
+                    System.out.println("Test3");
                     if (ship.hasFullHealth()) {
+                        System.out.println("Test4");
                         ship.makeInvisible();
                     }
                 }

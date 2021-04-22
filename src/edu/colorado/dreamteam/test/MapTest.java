@@ -299,7 +299,8 @@ public class MapTest {
         Map map = new Map();
         map.placeShips(2, 2, 4, 'V', true, "submarine");
         map.placeShips(7, 4, 2, 'H', false, "minesweeper");
-        map.placeShips(1, 1, 4, 'H', false, "battleship");
+        map.placeShips(1, 1, 4, 'H', true, "submarine");
+//        map.placeShips(1, 1, 4, 'H', false, "battleship");
         map.placeShips(5, 5, 3, 'H', false, "destroyer");
         map.getMaps();
         map.makeInvisible("minesweeper");
@@ -320,7 +321,37 @@ public class MapTest {
         map.makeInvisible("minesweeper");
         map.getMaps();
     }
-
+    @Test
+    public void createBlucifer() {
+        Map map = new Map();
+        map.placeShips(2, 4, 1, 'V', false, "blucifer");
+        map.getMaps();
+    }
+    @Test
+    public void Attackblucifer(){
+        Map map = new Map();
+        map.placeShips(2, 2, 4, 'V', true, "submarine");
+        map.placeShips(7, 4, 2, 'H', false, "minesweeper");
+        map.placeShips(1, 1, 4, 'H', false, "battleship");
+        map.placeShips(2, 4, 1, 'V', false, "blucifer");
+        map.getMaps();
+        map.getAttacked(2,4,new Weapon("mine"));
+        map.getMaps();
+    }
+    @Test
+    public void checkPoints(){
+        Map map = new Map();
+        map.placeShips(7, 4, 2, 'H', false, "minesweeper");
+        map.placeShips(1, 1, 4, 'H', false, "battleship");
+        map.placeShips(2, 4, 1, 'V', false, "blucifer");
+        map.getMaps();
+        map.getAttacked(7,4,new Weapon("mine"));
+        map.getPoints();
+        map.getAttacked(1,1,new Weapon("mine"));
+        map.getPoints();
+        map.getAttacked(2,4,new Weapon("mine"));
+        map.getPoints();
+    }
     @Test
     public void submergedDestroyer() {
         Map map = new Map();

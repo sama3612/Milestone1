@@ -28,6 +28,7 @@ public class UI {
         map.getMaps();
         System.out.println("\n\nWhere do you want your " + shipType + "? (Enter coordinates as (row,col) -- don't include the parenthesis");
         String coors = sc.nextLine();
+        //Have an if statement, checking if there is no comma to update them saying put a comma in betweenk
         int row = Integer.parseInt(coors.substring(0,coors.indexOf(',')));
         int col = Integer.parseInt(coors.substring(coors.indexOf(',') + 1));
         System.out.println("What orientation do you want the ship in? (H or V)");

@@ -2,7 +2,8 @@ package edu.colorado.dreamteam.java;
 
 public class Player {
     private String name;
-    private Map map;        //each player will have their own map that contains their ships and the shot history
+    private Map map;
+//    private int Score;//each player will have their own map that contains their ships and the shot history
 
     public Player(String name, Map map) {
         this.name = name;
@@ -16,6 +17,13 @@ public class Player {
     public boolean getAttacked(int row, int col, String weapon) {
         return map.getAttacked(row, col, new Weapon(weapon));
     }
+//    public int getScore(){
+//        return Score;
+//    }
+//    public void setScore(int Score){
+//        this.Score=Score
+//    }
+
 
     public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name) { return map.placeShips(row,col,m,v, submerged, name); }
 

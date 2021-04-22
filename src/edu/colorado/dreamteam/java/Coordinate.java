@@ -7,6 +7,7 @@ public class Coordinate {
         HIT,
         MISS,
         EMPTY,
+        BLU,
         FAKEEMPTY //secondary status for a hit captain's quarters with armor that displays as miss but acts differently
     }
 
@@ -71,6 +72,7 @@ public class Coordinate {
         switch (this.status) {
             case EMPTY:
                 return "0";
+            case BLU:
             case SHIP:
             case CAPTAINQ:
                 return "1";

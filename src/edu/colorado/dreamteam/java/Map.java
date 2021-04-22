@@ -97,19 +97,19 @@ public class Map {
         }
     }
     public boolean getAttacked(int row, int col, Weapon weapon) {
-        if (weapon.getWeaponType().equals("stopper")) {
-        if(board[row][col].getStatus() == Coordinate.Status.BLU && weapon.getWeaponType() != "sonar_pulse"){
+        if (board[row][col].getStatus() == Coordinate.Status.BLU && weapon.getWeaponType() != "sonar_pulse") {
             System.out.println("You hit blucifer, your ship is about to get recked!!");
-            points-=1;
+            points -= 1;
             return true;
         }
         if (weapon.getWeaponType() == "stopper") {
 //            System.out.println("HEY");
             return stopper();
         }
-        else if(weapon.getWeaponType().equals("sonar_pulse")) {
-            return sonarPulse(row,col);
-        } else {
+        else if (weapon.getWeaponType().equals("sonar_pulse")) {
+            return sonarPulse(row, col);
+        }
+        else {
             boolean returnValue = false;
             if (weapon.getWeaponType().equals("space_laser")) {
                 if (!firstShipSunk) {
@@ -120,7 +120,7 @@ public class Map {
                 }
             }
             if (board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
-                points+=1;
+                points += 1;
                 for (int i = 0; i < numShips; i++) {
                     if (ships[i].getAttacked(row, col)) {
                         System.out.println("That was a Hit!");
@@ -131,9 +131,9 @@ public class Map {
                         returnValue = true;
                     }
                 }
-            }else if(board[row][col].getStatus() == Coordinate.Status.HIT) {
+            } else if (board[row][col].getStatus() == Coordinate.Status.HIT) {
                 System.out.println("This spot was attacked and Hit already!");
-            } else if(board[row][col].getStatus() == Coordinate.Status.MISS){
+            } else if (board[row][col].getStatus() == Coordinate.Status.MISS) {
                 System.out.println("This spot was attacked and Missed already!");
             } else {
                 board[row][col].setStatus(Coordinate.Status.MISS);
@@ -143,9 +143,8 @@ public class Map {
         }
     }
 
-
     //Set ships on map on the given locations!
-    public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name) { //Go through coordinates and set those on the map =1
+    public boolean placeShips(int row, int col, int m, char v, boolean submerged,String name){ //Go through coordinates and set those on the map =1
         //Takes in a coordinate and it sets those values to 1;
         //limit user, to down or sideways.
         //V for vertical, H for Horizontal.

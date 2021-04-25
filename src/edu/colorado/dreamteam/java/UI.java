@@ -47,6 +47,8 @@ public class UI {
     }
 
     public static Coordinate getAttack(Scanner sc, Player player) {
+        System.out.println("Here is the enemy- " + player.getName() + "'s - map so far. Your hits are shown in green and misses are shown in red. ");
+        player.displayEnemyMap();
         System.out.println("Where do you want to attack " + player.getName() + "? (Enter coordinates as (row,col) -- don't include the parenthesis");
         String coors = sc.nextLine();
         int row = Integer.parseInt(coors.substring(0,coors.indexOf(',')));

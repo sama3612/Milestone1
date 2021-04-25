@@ -30,6 +30,8 @@ public class Player {
     public boolean isAlive() { return map.hasShips(); }
 
     public void displayFullMap() { map.getMaps(); }
+
+    public void displayEnemyMap() {map.getEnemyMaps();}
 }
 
 //testing to see if my intellj is broken :-)

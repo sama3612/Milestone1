@@ -273,6 +273,34 @@ public class Map {
             System.out.println();
         }
     }
+
+    public void getEnemyMaps(){
+        System.out.printf("   ");
+        for (int j = 0; j < 10; j++) {
+            System.out.printf("%2d ", j);
+        }
+        System.out.println();
+        for( int i=0; i < 10; i++) {
+            System.out.printf("%2d ", i);
+            for (int j = 0; j < 10; j++) {
+                if(board[i][j].getStatus() == Coordinate.Status.HIT){ //green
+                    System.out.print("\u001B[32m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
+                else if(board[i][j].getStatus() == Coordinate.Status.MISS) { //red
+                    System.out.print("\u001B[31m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
+                else {
+                    System.out.print(" " + "0" + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
+
+
+
     //Return a specific array!
     public void getSonarMaps(String board[][]){
         System.out.printf("   ");

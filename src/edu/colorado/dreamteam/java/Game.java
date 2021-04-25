@@ -27,14 +27,14 @@ public class Game {
         while(player1.isAlive() && player2.isAlive()) {
             if(player1Turn) {
                 player2.displayFullMap();
-                coors = UI.getAttack(sc, player1);
+                coors = UI.getAttack(sc, player1, player2);
                 row = coors.getX();
                 col = coors.getY();
                 attackType = coors.getAttackType();
                 player2.getAttacked(row,col,attackType);
             } else {
                 player1.displayFullMap();
-                coors = UI.getAttack(sc, player2);
+                coors = UI.getAttack(sc, player2, player1);
                 row = coors.getX();
                 col = coors.getY();
                 attackType = coors.getAttackType();

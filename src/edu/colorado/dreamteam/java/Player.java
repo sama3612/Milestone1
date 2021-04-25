@@ -32,6 +32,8 @@ public class Player {
     public void displayFullMap() { map.getMaps(); }
 
     public void displayEnemyMap() {map.getEnemyMaps();}
+
+    public void checkPoints() {map.getPoints();}
 }
 
 //testing to see if my intellj is broken :-)

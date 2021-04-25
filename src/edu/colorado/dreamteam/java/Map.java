@@ -260,12 +260,16 @@ public class Map {
                 if(board[i][j].getStatus() == Coordinate.Status.SHIP || board[i][j].getStatus() == Coordinate.Status.CAPTAINQ) {
                     System.out.print("\u001B[35m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
+                else if(board[i][j].getBelowSurfaceStatus() == Coordinate.Status.SHIP) {
+                    System.out.print("\u001B[33m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
                 else if(board[i][j].getStatus() == Coordinate.Status.HIT){
                     System.out.print("\u001B[31m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
                 else if(board[i][j].getStatus() == Coordinate.Status.MISS) {
                     System.out.print("\u001B[32m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
+
                 else {
                     System.out.print(" " + board[i][j] + " ");
                 }

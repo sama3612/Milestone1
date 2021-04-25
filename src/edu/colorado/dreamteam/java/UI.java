@@ -60,6 +60,8 @@ public class UI {
         return coordinate;
     }
 
+
+
     public static void congratulatePlayer(Player player1) {
         System.out.println("Congrats " + player1.getName() + ", you won!");
     }

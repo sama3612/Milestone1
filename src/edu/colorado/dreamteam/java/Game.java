@@ -27,6 +27,7 @@ public class Game {
         while(player1.isAlive() && player2.isAlive()) {
             if(player1Turn) {
                 player2.displayFullMap();
+                player2.checkPoints();
                 coors = UI.getAttack(sc, player1, player2);
                 row = coors.getX();
                 col = coors.getY();
@@ -34,6 +35,7 @@ public class Game {
                 player2.getAttacked(row,col,attackType);
             } else {
                 player1.displayFullMap();
+                player1.checkPoints();
                 coors = UI.getAttack(sc, player2, player1);
                 row = coors.getX();
                 col = coors.getY();

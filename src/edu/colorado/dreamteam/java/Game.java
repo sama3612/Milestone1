@@ -26,17 +26,23 @@ public class Game {
 
         while(player1.isAlive() && player2.isAlive()) {
             if(player1Turn) {
-                player2.displayFullMap();
-                player2.checkPoints();
-                coors = UI.getAttack(sc, player1, player2);
+                System.out.println("It's now "+ player1.getName() + "'s turn.");
+                System.out.println(player1.getName() + "'s Points:");
+                System.out.println(player2.checkPoints());
+                System.out.println("Here's your map");
+                player1.displayFullMap();
+                coors = UI.getAttack(sc, player2, player1);
                 row = coors.getX();
                 col = coors.getY();
                 attackType = coors.getAttackType();
                 player2.getAttacked(row,col,attackType);
             } else {
-                player1.displayFullMap();
-                player1.checkPoints();
-                coors = UI.getAttack(sc, player2, player1);
+                System.out.println("It's now "+ player2.getName() + "'s turn.");
+                System.out.println(player2.getName() + "'s Points:");
+                System.out.println(player1.checkPoints());
+                System.out.println("Here's your map");
+                player2.displayFullMap();
+                coors = UI.getAttack(sc, player1, player2);
                 row = coors.getX();
                 col = coors.getY();
                 attackType = coors.getAttackType();

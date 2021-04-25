@@ -33,7 +33,7 @@ public class Player {
 
     public void displayEnemyMap() {map.getEnemyMaps();}
 
-    public void checkPoints() {map.getPoints();}
+    public int checkPoints() {return map.getPoints();}
 }
 
 //testing to see if my intellj is broken :-)

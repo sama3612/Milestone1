@@ -29,8 +29,8 @@ public class Map {
         }
     }
     public int getPoints(){
-        System.out.println("Points:");
-        System.out.println(points);
+//        System.out.println("Points:");
+//        System.out.println(points);
         return points;
     }
     public void setPoints(int points){
@@ -89,6 +89,7 @@ public class Map {
                 if (ships[i].getAttackedBelow(row, col)) {
                     System.out.println("That was a Hit!");
                     if (ships[i].isSunk()) {
+                        points += 5;
                         numShips--;
                     }
                     returnValue = true;
@@ -99,7 +100,7 @@ public class Map {
     public boolean getAttacked(int row, int col, Weapon weapon) {
         if (board[row][col].getStatus() == Coordinate.Status.BLU && weapon.getWeaponType() != "sonar_pulse") {
             System.out.println("You hit blucifer, your ship is about to get recked!!");
-            points -= 1;
+            points -= 10;
             return true;
         }
         if (weapon.getWeaponType() == "stopper") {
@@ -116,15 +117,18 @@ public class Map {
                     System.out.println("You need to destroy a ship first!");
                     return false;
                 } else {
+//                    points += 1;
                     spaceLaser(row, col, returnValue);
                 }
             }
             if (board[row][col].getStatus() == Coordinate.Status.SHIP || board[row][col].getStatus() == Coordinate.Status.CAPTAINQ || board[row][col].getStatus() == Coordinate.Status.FAKEEMPTY) {
-                points += 1;
+
                 for (int i = 0; i < numShips; i++) {
                     if (ships[i].getAttacked(row, col)) {
                         System.out.println("That was a Hit!");
+
                         if (ships[i].isSunk()) {
+                            points += 5;
                             numShips--;
                             firstShipSunk = true;
                         }
@@ -159,7 +163,7 @@ public class Map {
             coors = new Coordinate[m];
         }
         if(v=='V'){
-            if(row + m < 9) {
+            if(row + m <= 10) {
                 for(int i = 0; i < m; i++) {
                     coors[i] = board[row+i][col];
                 }
@@ -168,7 +172,7 @@ public class Map {
                 return false;
             }
         } else {
-            if(col + m < 9) {
+            if(col + m <= 10) {
                 for(int i = 0; i < m; i++) {
                     coors[i] = board[row][col+i];
                 }
@@ -260,7 +264,7 @@ public class Map {
                 if(board[i][j].getStatus() == Coordinate.Status.SHIP || board[i][j].getStatus() == Coordinate.Status.CAPTAINQ) {
                     System.out.print("\u001B[35m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
-                else if(board[i][j].getBelowSurfaceStatus() == Coordinate.Status.SHIP) {
+                else if(board[i][j].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[i][j].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ) {
                     System.out.print("\u001B[33m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
                 else if(board[i][j].getStatus() == Coordinate.Status.HIT){

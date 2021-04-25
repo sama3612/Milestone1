@@ -203,7 +203,6 @@ public class MapTest {
         map.moveShips('N');
         map.getMaps();
     }
-
     @Test
     public void Moveoutofrange() {
         Map map = new Map();
@@ -211,9 +210,7 @@ public class MapTest {
         map.getMaps();// assert that this returns false.
         map.moveShips('N');
         map.getMaps();
-
     }
-
     @Test
     public void Moveagain() {
         Map map = new Map();
@@ -226,7 +223,6 @@ public class MapTest {
         map.moveShips('E');
         map.getMaps();
     }
-
     @Test
     public void UndoMove() {
         Map map = new Map();
@@ -236,7 +232,6 @@ public class MapTest {
         map.getMaps();
         map.Undo();
         map.getMaps();
-
     }
     @Test
     public void RedoMove(){

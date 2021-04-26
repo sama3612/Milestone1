@@ -279,13 +279,14 @@ public class MapTest {
         Map map = new Map();
         map.placeShips(2, 2, 4, 'V', true, "submarine");
         map.placeShips(7, 4, 2, 'H', false, "minesweeper");
-        map.placeShips(1, 1, 4, 'H', true, "submarine");
+        map.placeShips(1, 1, 4, 'H', false, "battleship");
         map.placeShips(5, 5, 3, 'H', false, "destroyer");
         map.getMaps();
-        map.makeInvisible("submarine");
-        map.makeInvisible("minesweeper");
-        map.makeInvisible("submarine");
-        map.getMaps();
+        map.getAttacked(7, 4, new Weapon("mine"));
+        map.getAttacked(7, 5, new Weapon("mine"));
+        map.sonarPulse(2,2);
+        map.makeInvisible("battleship");
+        map.sonarPulse(2,2);
     }
 
     @Test

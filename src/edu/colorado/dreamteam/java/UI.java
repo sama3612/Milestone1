@@ -31,6 +31,7 @@ public class UI {
         setupShip(sc,3,"destroyer", map);
         setupShip(sc,4,"battleship",map);
         setupShip(sc,4,"submarine",map);
+        setupShip(sc,1,"blucifer",map);
         System.out.println("Great!! Your map is setup now " + name + ", here's what it looks like.");
         map.getMaps();
         System.out.println("\n\n\n");

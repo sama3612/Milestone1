@@ -320,6 +320,9 @@ public class Map {
                 else if(board[i][j].getBelowSurfaceStatus() == Coordinate.Status.SHIP || board[i][j].getBelowSurfaceStatus() == Coordinate.Status.CAPTAINQ) {
                     System.out.print("\u001B[33m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
+                else if(board[i][j].getStatus() == Coordinate.Status.BLU) {
+                    System.out.print("\u001B[34m" + " " + board[i][j] + " " + "\u001B[0m");
+                }
                 else if(board[i][j].getStatus() == Coordinate.Status.HIT){
                     System.out.print("\u001B[31m" + " " + board[i][j] + " " + "\u001B[0m");
                 }

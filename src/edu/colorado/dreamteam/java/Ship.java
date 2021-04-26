@@ -1,4 +1,8 @@
 package edu.colorado.dreamteam.java;
+
+/**
+ * Base class for all Ship objects, parent to Minesweeper, Battleship, Destroyer, Submarine, and Blucifer
+ */
 public abstract class Ship {
     protected String name;
     protected int health;
@@ -10,6 +14,13 @@ public abstract class Ship {
     protected Coordinate[] oldStatus;
     private Map maps;
 
+    /**
+     * Constructor for ship that has the coordinates that the ship occupies
+     * @param name
+     * @param size
+     * @param coordinates
+     * @param submerged
+     */
     public Ship(String name, int size, Coordinate[] coordinates, boolean submerged) {
 
         this.name = name;
@@ -35,6 +46,9 @@ public abstract class Ship {
 
     }
 
+    /**
+     * Set the captains quarters for this ship
+     */
     public void setCaptainQuart() {
         captainQuart = coordinates[coordinates.length-2];
         if (submerged) {
@@ -51,6 +65,12 @@ public abstract class Ship {
         }
     }
 
+    /**
+     * Functions that attacks this ship and returns false if it was not a valid hit
+     * @param row
+     * @param col
+     * @return
+     */
     public Boolean getAttacked(int row, int col) {     //method to handle a ship being shot at
         Coordinate attack = new Coordinate(row, col);
 
@@ -83,6 +103,12 @@ public abstract class Ship {
         }
     }
 
+    /**
+     * Attacks a ship below the surface (mainly used for Submarine class)
+     * @param row
+     * @param col
+     * @return
+     */
     public Boolean getAttackedBelow(int row, int col){
         boolean returnValue = false;
         if(submerged) {
@@ -116,31 +142,55 @@ public abstract class Ship {
         return returnValue;
     }
 
+    /**
+     * Checks if the ship is sunk yet
+     * @return
+     */
     public Boolean isSunk() {
         return health <= 0;
     }
 
+    /**
+     * Gets the name of this ship
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter for the health of the ship (number of coordinates not attacked)
+     * @return
+     */
     public int getHealth() {
         return health;
     }
-//    public boolean getSubmerdge(){
-//        return submerged;
-//    }
+
+    /**
+     * Getter for the coordinates of this ship
+     * @return
+     */
     public Coordinate[] getCoordinates() {
         return coordinates;
     }
 
+    /**
+     * Moves the ship to the new location specified by the coord parameter
+     * @param coord
+     * @return
+     */
     public boolean moveCoordinates(Coordinate[] coord){
         this.coordinates=coord;
         return true;
 
     }
 
-    public boolean overlaps(Ship ship) {//method to check that a ship's coordinates does not overlap with other ships
+    /**
+     * Check if this ship overlaps with another ship based on the coordinates of both ships
+     * @param ship
+     * @return
+     */
+    public boolean overlaps(Ship ship) {
         for(Coordinate c1 : coordinates) {
             for(Coordinate c2 : ship.getCoordinates()) {
                 if(c1 == c2) {
@@ -151,10 +201,17 @@ public abstract class Ship {
         return false;
     }
 
+    /**
+     * Check if the ship has full health
+     * @return
+     */
     public boolean hasFullHealth() {
         return fullHeath;
     }
 
+    /**
+     * Make a ship invisible even when a sonar pulse is used
+     */
     public void makeInvisible() {
         System.arraycopy(coordinates,0,oldStatus,0,coordinates.length);
         for (Coordinate c : coordinates) {

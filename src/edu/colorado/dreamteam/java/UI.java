@@ -1,7 +1,15 @@
 package edu.colorado.dreamteam.java;
 import java.util.Scanner;
 
+/**
+ * Class for the UI
+ */
 public class UI {
+    /**
+     * Iniitalize the player with a name
+     * @param sc
+     * @return
+     */
     public static Player initPlayer(Scanner sc) {
         System.out.println("What's your name?");
         String name = sc.nextLine();
@@ -11,6 +19,12 @@ public class UI {
         return new Player(name, setupMap(sc, name));
     }
 
+    /**
+     * Setup the map for the player by setting up each ship on the board
+     * @param sc
+     * @param name
+     * @return
+     */
     private static Map setupMap(Scanner sc, String name) {
         Map map = new Map();
         setupShip(sc,2,"minesweeper",map);
@@ -23,6 +37,13 @@ public class UI {
         return map;
     }
 
+    /**
+     * Setup the ship based on the user input, keep going until the ship is constructed properly
+     * @param sc
+     * @param length
+     * @param shipType
+     * @param map
+     */
     private static void setupShip(Scanner sc, int length, String shipType, Map map) {
         System.out.println("Here's your map so far:");
         map.getMaps();
@@ -46,6 +67,13 @@ public class UI {
         }
     }
 
+    /**
+     * Get the attack that the user wants to use against the other player
+     * @param sc
+     * @param player
+     * @param player2
+     * @return
+     */
     public static Coordinate getAttack(Scanner sc, Player player, Player player2) {
         System.out.println("Here is the enemy- " + player.getName() + "'s - map so far. Your hits are shown in green and misses are shown in red. ");
         player.displayEnemyMap();
@@ -61,7 +89,10 @@ public class UI {
     }
 
 
-
+    /**
+     * Simple function to congratulate the player that wins the game
+     * @param player1
+     */
     public static void congratulatePlayer(Player player1) {
         System.out.println("Congrats " + player1.getName() + ", you won!");
     }

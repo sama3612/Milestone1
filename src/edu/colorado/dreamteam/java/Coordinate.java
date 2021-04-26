@@ -1,6 +1,9 @@
 package edu.colorado.dreamteam.java;
 
 public class Coordinate {
+    /**
+     * Enum representing different types of Coordinate statuses
+     */
     enum Status {
         SHIP,
         CAPTAINQ,
@@ -23,50 +26,83 @@ public class Coordinate {
         this.belowSurfaceStatus = Status.EMPTY;
     }
 
+    /**
+     * Getter for x coordinate value
+     * @return
+     */
     public int getX() {
         return x;
     }
 
-//    public void setX(int x) {
-//        this.x = x;
-//    }
-
+    /**
+     * Setter for y coordinate value
+     * @return
+     */
     public int getY() {
         return y;
     }
 
-//    public void setY(int y) {
-//        this.y = y;
-//    }
-
+    /**
+     * Getter for Status enum object
+     * @return
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Setter for Enum Status object
+     * @param status
+     */
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    /**
+     * Overrided equals method that is used to compare different coordinate values
+     * @param c
+     * @return
+     */
     public boolean equals(Coordinate c) {
         return getX() == c.getX() && getY() == c.getY();
     }
 
+    /**
+     * Getter for below surface Status enum
+     * @return
+     */
     public Status getBelowSurfaceStatus() {
         return belowSurfaceStatus;
     }
 
+    /**
+     * Setter for below surface status enum object
+     * @param belowSurfaceStatus
+     */
     public void setBelowSurfaceStatus(Status belowSurfaceStatus) {
         this.belowSurfaceStatus = belowSurfaceStatus;
     }
 
+    /**
+     * Returns the type of attack that was used on the coordinate
+     * @return
+     */
     public String getAttackType() {
         return attackType;
     }
 
+    /**
+     * Setter for the type of attack that was used on the coordinate
+     * @param attackType
+     */
     public void setAttackType(String attackType) {
         this.attackType = attackType;
     }
 
+    /**
+     * Converts the status of the enum status object to a String number that is used when displaying the maps to the user
+     * @return
+     */
     @Override
     public String toString() {
         switch (this.status) {

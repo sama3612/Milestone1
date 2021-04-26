@@ -2,14 +2,23 @@ package edu.colorado.dreamteam.java;
 
 import java.util.Scanner;
 
+/**
+ * Class for the Game that runs the Battleship game for two players and handles switching between players
+ */
 public class Game {
     private Player player1;
     private Player player2;
 
+    /**
+     * Game Constructor that calls the playgame function
+     */
     public Game() {
         playGame();
     }
 
+    /**
+     * Starts the game, initialized players, and switches turns between the players to run the game
+     */
     public void playGame() {
         Scanner sc = new Scanner(System.in);
 

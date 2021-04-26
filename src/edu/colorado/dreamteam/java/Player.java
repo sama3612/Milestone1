@@ -6,7 +6,7 @@ package edu.colorado.dreamteam.java;
 public class Player {
     private String name;
     private Map map;
-//    private int Score;//each player will have their own map that contains their ships and the shot history
+    //each player will have their own map that contains their ships and the shot history
 
     /**
      * Constructor for Player that takes a name and map object

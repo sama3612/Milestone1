@@ -9,29 +9,26 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PlayerTest {
     @Test
-    public void playerCreated1() {
+    public void playerCreated() {
         Player player = new Player("test", new Map());
         assertThat(player.getName(), is("test"));
     }
 
-    //No ships, so not alive
     @Test
-    public void playerIsAlive1() {
+    public void playerIsAliveOneShip() {
         Player player = new Player("test", new Map());
         player.placeShips(1, 2, 2, 'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
     }
 
-    //No ships, so not alive
     @Test
-    public void playerIsAlive2() {
+    public void playerIsAliveNoShips() {
         Player player = new Player("test", new Map());
         assertThat(player.isAlive(), is(false));
     }
 
-    //Had ships but lost ships, so dead
     @Test
-    public void playerIsAlive3() {
+    public void playerIsAliveLostAllShips() {
         Player player = new Player("test", new Map());
         player.placeShips(1, 2, 2, 'V', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
@@ -40,15 +37,14 @@ public class PlayerTest {
         assertThat(player.isAlive(), is(false));
     }
 
-    //Player has multiple ships
     @Test
-    public void playerIsAlive4() {
+    public void playerIsAliveMultipleShips() {
         Player player = new Player("test", new Map());
         player.placeShips(1, 2, 2, 'V', false, "minesweeper");
         player.placeShips(4, 7, 2, 'H', false, "minesweeper");
         assertThat(player.isAlive(), is(true));
         player.getAttacked(1, 2, "mine");
         player.getAttacked(2, 2, "mine");
-        assertThat(player.isAlive(), is(false));
+        assertThat(player.isAlive(), is(true));
     }
 }

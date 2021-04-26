@@ -22,19 +22,15 @@ public abstract class Ship {
      * @param submerged
      */
     public Ship(String name, int size, Coordinate[] coordinates, boolean submerged) {
-
         this.name = name;
         this.health = size;
-//        maps=new Map();
         this.coordinates = coordinates;
         this.oldStatus = new Coordinate[coordinates.length];
         if(size > 1){
-//            System.out.println("ISsue in Ship");
             captainQuart = coordinates[coordinates.length-2];
         }
         this.submerged = submerged;
         fullHeath = true;
-        //by convention, must initialize ship coordinates with the stub as last coordinate
 
         if(size > 2) {
             armor = 1;
@@ -42,8 +38,6 @@ public abstract class Ship {
         else {
             armor = 0;
         }
-//        System.out.println("ISsue in Ship");
-
     }
 
     /**
@@ -131,7 +125,6 @@ public abstract class Ship {
                 for (Coordinate c : coordinates) {
                     if (c.equals(attack) && c.getBelowSurfaceStatus() == Coordinate.Status.SHIP) {
                         c.setBelowSurfaceStatus(Coordinate.Status.HIT);
-                        System.out.println("HERE GETTIN");
                         health =health - 1;
                         returnValue = true;
                     }

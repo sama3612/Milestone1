@@ -5,7 +5,6 @@ import java.util.*;
  * Map class that controls the board for each player
  */
 public class Map {
-//    private int board[][];//Create a 2d array
     private Coordinate board[][];
     private Ship ships[];
     private Stack<Character> Undostack;
@@ -15,6 +14,7 @@ public class Map {
     private int sonarPulsesLeft;
     private boolean disabled;
     private int points;
+    private boolean used_once;
 
     /**
      * Map constructor that sets up the initial map with the default initial values
@@ -28,7 +28,8 @@ public class Map {
         points=0;
         sonarPulsesLeft = 2;
         firstShipSunk = false;
-        for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
+        used_once = false;
+        for( int i=0; i < 10; i++) { //Populate map with 0s then update when player inputs value
             for (int j = 0; j < 10; j++) {
                 board[i][j] = new Coordinate(i,j);
             }
@@ -40,8 +41,6 @@ public class Map {
      * @return
      */
     public int getPoints(){
-//        System.out.println("Points:");
-//        System.out.println(points);
         return points;
     }
 
@@ -81,7 +80,6 @@ public class Map {
             System.out.println("You are out of sonar pulses!");
             return false;
         }
-        //Check if at least one ship has been destroyed yet
         if(!firstShipSunk) {
             System.out.println("You need to destroy a ship first!");
             return false;
@@ -151,7 +149,6 @@ public class Map {
             return true;
         }
         if (weapon.getWeaponType() == "stopper") {
-//            System.out.println("HEY");
             return stopper();
         }
         else if (weapon.getWeaponType().equals("sonar_pulse")) {
@@ -164,7 +161,6 @@ public class Map {
                     System.out.println("You need to destroy a ship first!");
                     return false;
                 } else {
-//                    points += 1;
                     spaceLaser(row, col, returnValue);
                 }
             }
@@ -204,11 +200,10 @@ public class Map {
      * @param name
      * @return
      */
-    public boolean placeShips(int row, int col, int m, char v, boolean submerged,String name){ //Go through coordinates and set those on the map =1
-        //Takes in a coordinate and it sets those values to 1;
-        //limit user, to down or sideways.
+    public boolean placeShips(int row, int col, int m, char v, boolean submerged, String name){
+        //Takes in a coordinate and it sets those values to 1
         //V for vertical, H for Horizontal.
-        //M for Minesweeper=2 cells, D for Destroyer=3 cells, B for Battleship=4 cells
+        //M for Minesweeper= 2 cells, D for Destroyer=3 cells, B for Battleship= 4 cells
         assert(row >= 0);
         assert(col >= 0);
         Coordinate coors[];
@@ -316,7 +311,7 @@ public class Map {
             System.out.printf("%2d ", j);
         }
         System.out.println();
-        for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
+        for( int i=0; i < 10; i++) {
             System.out.printf("%2d ", i);
             for (int j = 0; j < 10; j++) {
                 if(board[i][j].getStatus() == Coordinate.Status.SHIP || board[i][j].getStatus() == Coordinate.Status.CAPTAINQ) {
@@ -352,10 +347,10 @@ public class Map {
         for( int i=0; i < 10; i++) {
             System.out.printf("%2d ", i);
             for (int j = 0; j < 10; j++) {
-                if(board[i][j].getStatus() == Coordinate.Status.HIT){ //green
+                if(board[i][j].getStatus() == Coordinate.Status.HIT){
                     System.out.print("\u001B[32m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
-                else if(board[i][j].getStatus() == Coordinate.Status.MISS) { //red
+                else if(board[i][j].getStatus() == Coordinate.Status.MISS) {
                     System.out.print("\u001B[31m" + " " + board[i][j] + " " + "\u001B[0m");
                 }
                 else {
@@ -376,7 +371,7 @@ public class Map {
             System.out.printf("%2d ", j);
         }
         System.out.println();
-        for( int i=0; i < 10; i++) { //Populate map with 0s then update when person inputs value, might need 2 of these
+        for( int i=0; i < 10; i++) {
             System.out.printf("%2d ", i);
             for (int j = 0; j < 10; j++) {
                 System.out.printf("%2s ", board[i][j]);
@@ -409,7 +404,7 @@ public class Map {
         }
 
         for(int i = 0; i<numShips; i++){
-            Coordinate coors[] = new Coordinate[ships[i].getHealth()];//created an array for the updated coordinates
+            Coordinate coors[] = new Coordinate[ships[i].getHealth()]; //created an array for the updated coordinates
             int counter=0;
             for(Coordinate c : ships[i].getCoordinates()){
                 if(M=='S'&& c.getX()<9){
@@ -431,7 +426,7 @@ public class Map {
                 }
                 else if(M=='E' && c.getY()<9){
                     board[c.getX()][c.getY()+1].setStatus(Coordinate.Status.SHIP);
-                    if(counter==0) {//only set the first cell Empty
+                    if(counter==0) {
                         board[c.getX()][c.getY()].setStatus(Coordinate.Status.EMPTY);
                     }
                     coors[counter++] = board[c.getX()][c.getY()+1];
@@ -441,7 +436,7 @@ public class Map {
                     return false;
                 }
             }
-            ships[i].moveCoordinates(coors);//Updates the new coordinates for the ships
+            ships[i].moveCoordinates(coors); //updates the new coordinates for the ships
             ships[i].setCaptainQuart();
         }
         return true;
@@ -473,16 +468,20 @@ public class Map {
     public void makeInvisible(String name) {
         if (disabled == false) {
             for (Ship ship : ships) {
-                ship.getAttackedBelow(-1, -1);
-                if (ship.name.equals(name)) {
-                    if (ship.hasFullHealth()) {
-                        ship.makeInvisible();
+                if(used_once == false) {
+                    ship.getAttackedBelow(-1, -1);
+                    if (ship.name.equals(name)) {
+                        if (ship.hasFullHealth()) {
+                            ship.makeInvisible();
+                            used_once = true;
+                        }
                     }
                 }
             }
         }
         else {
-            System.out.println("Your ships have been disabled by enemy stopper, you cannot move them. ");
+                System.out.println("Your ships have been disabled by enemy stopper, you cannot move them. ");
+            }
         }
-    }
 }
+

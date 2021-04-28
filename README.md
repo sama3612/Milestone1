@@ -29,11 +29,11 @@ Under the documents directory, the coding standard, team contract, and CRC cards
     - Renamed the tests to follow camelcase with descriptive titles.
  - Dead Code
     - Deleted all commented-out code and unnecessary comments.
+###Refactoring of the getAttacked functions discussed.
+![Before Refactoring](/before_refactoring.jpeg)
+![After Refactoring](/after_refactoring.png)
 
-
-
-
-
+-We also have more screenshots of before and afters on the milestone 5 wiki.
 
 #### Design Patterns
 As requested by Vasu, here are some of the design patterns that we incorporated during our development of the Battleship Game.
@@ -50,5 +50,4 @@ As requested by Vasu, here are some of the design patterns that we incorporated 
  - Singleton Pattern for UI
     - In order to avoid recreating the Scanner object every single time, we only created the Scanner object once and used that same object whenever called on the UI class to gather some user input. This resulted in a design pattern that was similar to a Singleton Pattern
  it through to each of the ships to see if they got attacked
-![Before Refactoring](/before_refactoring.jpeg)
-![After Refactoring](/after_refactoring.png)
+

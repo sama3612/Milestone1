@@ -50,5 +50,5 @@ As requested by Vasu, here are some of the design patterns that we incorporated 
  - Singleton Pattern for UI
     - In order to avoid recreating the Scanner object every single time, we only created the Scanner object once and used that same object whenever called on the UI class to gather some user input. This resulted in a design pattern that was similar to a Singleton Pattern
  it through to each of the ships to see if they got attacked
-![Before Refactoring](/Documents/images/before.png)
-![After Refactoring](/Documents/images/after.png)
+![Before Refactoring](/before_refactoring.jpeg)
+![After Refactoring](/after_refactoring.jpeg)

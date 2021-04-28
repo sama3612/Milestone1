@@ -29,7 +29,9 @@ Under the documents directory, the coding standard, team contract, and CRC cards
     - Renamed the tests to follow camelcase with descriptive titles.
  - Dead Code
     - Deleted all commented-out code and unnecessary comments.
-###Refactoring of the getAttacked functions discussed.
+
+### Refactoring of the getAttacked functions discussed.
+
 ![Before Refactoring](/before_refactoring.jpeg)
 ![After Refactoring](/after_refactoring.png)
 

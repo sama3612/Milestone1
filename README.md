@@ -1,5 +1,8 @@
 # Dream Team
-### CSCI4448-5448 Milestone1
+### CSCI4448-5448 Final Project
+
+## Project:
+This implementation of the popular Battleship game is the Final Project we completed for our CU Boulder Computer Science class Objected Oriented Analysis and Design. Given a simple battleship proposal, we formulated CRC cards and implemented classes based on design patterns covered in class. We focused on using design patterns that were most commonly used in industry to get a better understanding of what Software Engineering outside of the classroom looked like. Some of the design patterns include Abstract Factory, Singleton, Command, Strategy, and Observer.
 
 ## Members
 Sai Maddhi, Andrew Wu, Noorain Baig, Beka Admasu
